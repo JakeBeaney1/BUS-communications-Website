@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Market &amp; Competition - Samsonite Cinematic Engineering</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&amp;family=Inter:wght@400;500;600&amp;family=Manrope:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-high": "#2a2a2a",
+                    "on-primary-container": "#5b4000",
+                    "primary-container": "#d4ad65",
+                    "on-tertiary-fixed": "#261901",
+                    "on-background": "#e2e2e2",
+                    "on-error-container": "#ffdad6",
+                    "surface-bright": "#393939",
+                    "on-tertiary": "#3d2e10",
+                    "on-secondary-container": "#b6b5b4",
+                    "tertiary-container": "#c8b088",
+                    "primary-fixed-dim": "#e9c176",
+                    "on-tertiary-fixed-variant": "#554425",
+                    "surface-container-lowest": "#0e0e0e",
+                    "outline-variant": "#4d4635",
+                    "on-secondary-fixed": "#1b1c1c",
+                    "surface-variant": "#353535",
+                    "surface-container-highest": "#353535",
+                    "inverse-on-surface": "#303030",
+                    "tertiary-fixed": "#fadfb4",
+                    "outline": "#99907c",
+                    "on-primary-fixed-variant": "#5d4201",
+                    "on-primary-fixed": "#261900",
+                    "on-primary": "#412d00",
+                    "error-container": "#93000a",
+                    "tertiary-fixed-dim": "#dcc39a",
+                    "background": "#131313",
+                    "secondary-container": "#474747",
+                    "on-secondary": "#303030",
+                    "secondary": "#c8c6c5",
+                    "error": "#ffb4ab",
+                    "surface-tint": "#e9c176",
+                    "on-tertiary-container": "#544323",
+                    "surface": "#131313",
+                    "on-error": "#690005",
+                    "surface-dim": "#131313",
+                    "secondary-fixed": "#e4e2e1",
+                    "inverse-primary": "#775a19",
+                    "secondary-fixed-dim": "#c8c6c5",
+                    "primary": "#f1c97d",
+                    "primary-fixed": "#ffdea5",
+                    "inverse-surface": "#e2e2e2",
+                    "on-surface-variant": "#d0c5af",
+                    "on-surface": "#e2e2e2",
+                    "on-secondary-fixed-variant": "#474747",
+                    "tertiary": "#e5cba2",
+                    "surface-container-low": "#1b1b1b",
+                    "surface-container": "#1f1f1f"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {},
+            "fontFamily": {
+                    "headline": [
+                            "Space Grotesk"
+                    ],
+                    "body": [
+                            "Inter"
+                    ],
+                    "label": [
+                            "Manrope"
+                    ]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-surface text-on-surface font-body antialiased selection:bg-primary/30 selection:text-primary min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="bg-[#131313]/80 backdrop-blur-xl docked full-width top-0 sticky z-50 shadow-[0_20px_50px_rgba(212,175,55,0.05)] border-b border-surface-container-low/50">
+<div class="flex justify-between items-center w-full px-12 py-6 max-w-screen-2xl mx-auto">
+<div class="text-xl font-bold tracking-[0.3em] text-[#f1c97d] font-headline">SAMSONITE KINETIC</div>
+<div class="hidden md:flex gap-8 items-center font-headline tracking-[0.2em] text-sm">
+<a class="text-[#f1c97d] border-b-2 border-[#f1c97d] pb-1 uppercase" href="#">Market</a>
+<a class="text-[#e2e2e2]/70 hover:text-[#e2e2e2] transition-colors hover:bg-[#f1c97d]/10 transition-all duration-300 px-3 py-1 rounded-DEFAULT uppercase" href="#">Strategy</a>
+<a class="text-[#e2e2e2]/70 hover:text-[#e2e2e2] transition-colors hover:bg-[#f1c97d]/10 transition-all duration-300 px-3 py-1 rounded-DEFAULT uppercase" href="#">Analysis</a>
+<a class="text-[#e2e2e2]/70 hover:text-[#e2e2e2] transition-colors hover:bg-[#f1c97d]/10 transition-all duration-300 px-3 py-1 rounded-DEFAULT uppercase" href="#">Engineering</a>
+</div>
+<div class="flex items-center gap-6">
+<button class="hidden md:flex items-center justify-center text-[#e2e2e2]/70 hover:text-[#f1c97d] transition-colors scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="settings_input_component">settings_input_component</span>
+</button>
+<button class="bg-gradient-to-br from-primary to-primary-container text-on-primary-fixed font-headline uppercase tracking-widest text-xs px-6 py-3 rounded-md hover:shadow-[0_0_20px_rgba(241,201,125,0.3)] transition-all">Configure</button>
+</div>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-grow flex flex-col relative w-full max-w-screen-2xl mx-auto px-6 md:px-12 py-16 gap-24">
+<!-- Header Section -->
+<section class="flex flex-col gap-6 max-w-3xl">
+<div class="flex items-center gap-4 text-primary font-label text-sm uppercase tracking-widest">
+<span class="w-8 h-[1px] bg-primary"></span>
+<span>Category Overview</span>
+</div>
+<h1 class="font-headline text-5xl md:text-7xl font-bold tracking-[0.15em] text-on-surface uppercase leading-tight">
+                MARKET &amp;<br/>COMPETITION
+            </h1>
+<p class="font-body text-on-surface-variant text-lg md:text-xl leading-relaxed max-w-2xl mt-4">
+                Defining a new category. While traditional luggage focuses on volume, Kinetic targets the premium intersection of aerospace engineering and mobile architecture.
+            </p>
+</section>
+<!-- Data Grid -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-8 relative z-10">
+<!-- Market Size Card -->
+<div class="lg:col-span-4 flex flex-col gap-8">
+<div class="bg-surface-container-high/60 backdrop-blur-2xl rounded-xl p-8 border border-outline-variant/15 hover:border-outline-variant/40 transition-colors flex flex-col h-full relative overflow-hidden group">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+<h3 class="font-headline text-sm text-primary uppercase tracking-[0.2em] mb-12 relative z-10">Total Addressable Market</h3>
+<div class="flex-grow flex flex-col justify-center relative z-10">
+<div class="font-headline text-7xl font-bold tracking-tight text-on-surface mb-2">$[XX]</div>
+<div class="font-headline text-2xl tracking-[0.1em] text-on-surface-variant uppercase">Billion</div>
+</div>
+<div class="mt-12 pt-6 border-t border-surface-container-lowest relative z-10">
+<p class="font-label text-sm text-on-surface-variant leading-relaxed">
+                            Projected global market size for premium travel solutions by 2028, reflecting a shift towards durable, high-performance hardshells.
+                        </p>
+</div>
+</div>
+</div>
+<!-- Chart Card -->
+<div class="lg:col-span-8">
+<div class="bg-surface-container-high/60 backdrop-blur-2xl rounded-xl p-8 border border-outline-variant/15 hover:border-outline-variant/40 transition-colors flex flex-col h-full">
+<div class="flex justify-between items-start mb-12">
+<h3 class="font-headline text-sm text-primary uppercase tracking-[0.2em]">Market Share Landscape</h3>
+<div class="flex gap-4">
+<span class="flex items-center gap-2 font-label text-xs text-on-surface-variant">
+<span class="w-3 h-3 rounded-full bg-primary shadow-[0_0_10px_rgba(241,201,125,0.5)]"></span> Samsonite Group
+                            </span>
+<span class="flex items-center gap-2 font-label text-xs text-on-surface-variant">
+<span class="w-3 h-3 rounded-full bg-surface-container-lowest border border-outline-variant"></span> DTC Challengers
+                            </span>
+</div>
+</div>
+<div class="flex-grow flex items-center justify-center relative min-h-[400px]">
+<!-- Abstract Donut Chart Representation using CSS -->
+<div class="relative w-72 h-72 rounded-full border-8 border-surface-container-lowest flex items-center justify-center">
+<!-- Segment 1 (Samsonite) -->
+<div class="absolute inset-0 rounded-full border-8 border-transparent border-t-primary border-r-primary transform rotate-45 opacity-90 shadow-[0_0_30px_rgba(241,201,125,0.2)]"></div>
+<!-- Center Void -->
+<div class="w-56 h-56 rounded-full bg-surface-container-high flex flex-col items-center justify-center shadow-inner">
+<div class="font-headline text-5xl font-bold text-primary mb-1">20%</div>
+<div class="font-label text-xs uppercase tracking-widest text-on-surface-variant text-center px-4">Samsonite Group<br/>Dominance</div>
+</div>
+</div>
+<!-- Data Labels -->
+<div class="absolute top-1/4 left-10 flex flex-col items-end">
+<span class="font-headline text-xl text-on-surface">Away</span>
+<span class="font-label text-xs text-on-surface-variant uppercase tracking-wider">DTC Pioneer</span>
+</div>
+<div class="absolute bottom-1/4 right-10 flex flex-col items-start">
+<span class="font-headline text-xl text-on-surface">Monos</span>
+<span class="font-label text-xs text-on-surface-variant uppercase tracking-wider">Premium Minimalist</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Strategic Insight -->
+<section class="bg-surface-container-low rounded-xl p-12 border border-outline-variant/10 relative overflow-hidden mb-12">
+<div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1558222218-b7b54eede3f3?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=2000&amp;q=80')] bg-cover bg-center opacity-[0.03] mix-blend-screen" data-alt="Dark abstract metallic surface reflecting warm golden light, technical blueprint texture subtle background"></div>
+<div class="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+<div>
+<h2 class="font-headline text-2xl font-bold tracking-[0.1em] text-on-surface uppercase mb-6">The Kinetic Advantage</h2>
+<p class="font-body text-on-surface-variant leading-relaxed mb-8">
+                        While challengers focus on lifestyle branding, Samsonite Kinetic roots its value proposition in uncompromising structural engineering. We are not competing on color palettes; we are competing on the physics of endurance.
+                    </p>
+<a class="inline-flex items-center gap-2 text-primary font-headline text-sm uppercase tracking-widest hover:text-primary-container transition-colors group" href="#">
+                        Read Engineering Brief
+                        <span class="material-symbols-outlined text-base group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-2 gap-6 border-l border-outline-variant/20 pl-12">
+<div class="flex flex-col gap-2">
+<span class="font-headline text-3xl text-primary font-bold">4.2x</span>
+<span class="font-label text-xs text-on-surface-variant uppercase tracking-widest">Impact Resistance vs. DTC Avg</span>
+</div>
+<div class="flex flex-col gap-2">
+<span class="font-headline text-3xl text-primary font-bold">15%</span>
+<span class="font-label text-xs text-on-surface-variant uppercase tracking-widest">Weight Reduction</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-[#0e0e0e] full-width py-12 px-12 mt-auto border-t border-surface-container-lowest">
+<div class="flex flex-col md:flex-row justify-between items-center w-full max-w-screen-2xl mx-auto gap-8">
+<div class="text-[#f1c97d] font-space-grotesk text-sm font-bold tracking-widest uppercase">SAMSONITE KINETIC</div>
+<div class="flex gap-6 font-inter text-[10px] tracking-widest uppercase opacity-60">
+<a class="text-[#e2e2e2] hover:text-[#f1c97d] transition-colors opacity-100 hover:opacity-80" href="#">Privacy</a>
+<a class="text-[#e2e2e2] hover:text-[#f1c97d] transition-colors opacity-100 hover:opacity-80" href="#">Technical Specs</a>
+<a class="text-[#e2e2e2] hover:text-[#f1c97d] transition-colors opacity-100 hover:opacity-80" href="#">Global Distribution</a>
+<a class="text-[#e2e2e2] hover:text-[#f1c97d] transition-colors opacity-100 hover:opacity-80" href="#">Press Kit</a>
+</div>
+<div class="font-inter text-[10px] tracking-widest uppercase opacity-60 text-[#e2e2e2]">
+                © 2024 SAMSONITE CINEMATIC ENGINEERING. ALL RIGHTS RESERVED.
+            </div>
+</div>
+</footer>
+</body></html>

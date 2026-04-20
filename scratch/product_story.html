@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>About Us: The Future of Luggage</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&amp;family=Inter:wght@400;500;600&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-dim": "#131313",
+                        "on-error-container": "#ffdad6",
+                        "background": "#131313",
+                        "on-background": "#e2e2e2",
+                        "inverse-surface": "#e2e2e2",
+                        "surface-variant": "#353535",
+                        "error-container": "#93000a",
+                        "on-secondary": "#303030",
+                        "surface-container-low": "#1b1b1b",
+                        "tertiary-container": "#c8b088",
+                        "on-surface-variant": "#d0c5af",
+                        "on-error": "#690005",
+                        "surface-container-high": "#2a2a2a",
+                        "tertiary": "#e5cba2",
+                        "outline": "#99907c",
+                        "inverse-on-surface": "#303030",
+                        "primary-container": "#d4ad65",
+                        "on-primary-fixed-variant": "#5d4201",
+                        "surface-bright": "#393939",
+                        "primary": "#f1c97d",
+                        "on-tertiary-fixed": "#261901",
+                        "tertiary-fixed": "#fadfb4",
+                        "on-secondary-fixed": "#1b1c1c",
+                        "surface-container-highest": "#353535",
+                        "error": "#ffb4ab",
+                        "secondary-container": "#474747",
+                        "surface-container-lowest": "#0e0e0e",
+                        "on-surface": "#e2e2e2",
+                        "on-tertiary-container": "#544323",
+                        "inverse-primary": "#775a19",
+                        "surface": "#131313",
+                        "tertiary-fixed-dim": "#dcc39a",
+                        "surface-tint": "#e9c176",
+                        "primary-fixed-dim": "#e9c176",
+                        "surface-container": "#1f1f1f",
+                        "primary-fixed": "#ffdea5",
+                        "secondary-fixed": "#e4e2e1",
+                        "on-primary-container": "#5b4000",
+                        "outline-variant": "#4d4635",
+                        "on-primary-fixed": "#261900",
+                        "on-tertiary-fixed-variant": "#554425",
+                        "secondary": "#c8c6c5",
+                        "on-primary": "#412d00",
+                        "on-secondary-fixed-variant": "#474747",
+                        "on-secondary-container": "#b6b5b4",
+                        "on-tertiary": "#3d2e10",
+                        "secondary-fixed-dim": "#c8c6c5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {},
+                    "fontFamily": {
+                        "headline": ["Space Grotesk", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "label": ["Manrope", "sans-serif"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background-color: rgba(42, 42, 42, 0.6);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(77, 70, 53, 0.15);
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+            border-color: rgba(77, 70, 53, 0.4);
+        }
+        .ambient-shadow {
+            box-shadow: 0 20px 60px rgba(241, 201, 125, 0.06);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body antialiased selection:bg-primary/30 selection:text-primary-fixed min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-stone-950/60 backdrop-blur-2xl bg-gradient-to-b from-stone-900/50 to-transparent shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
+<div class="flex justify-between items-center px-12 py-6 w-full max-w-[1600px] mx-auto">
+<div class="text-xl font-bold tracking-[0.3em] text-amber-200 uppercase font-headline">SAMSONITE</div>
+<div class="hidden md:flex gap-8 items-center font-['Space_Grotesk'] tracking-[0.15em] uppercase text-xs">
+<a class="text-stone-400 hover:text-amber-100 transition-colors duration-300" href="#">Design</a>
+<a class="text-stone-400 hover:text-amber-100 transition-colors duration-300" href="#">3D Viewport</a>
+<a class="text-stone-400 hover:text-amber-100 transition-colors duration-300" href="#">Specifications</a>
+<a class="text-amber-200 border-b border-amber-200/50 pb-1 hover:text-amber-100 transition-colors duration-300 active:opacity-80 active:scale-95 inline-block" href="#">Innovation</a>
+</div>
+<button class="bg-gradient-to-br from-primary to-primary-container text-on-primary-fixed px-6 py-2.5 rounded-md font-label font-bold text-sm tracking-widest uppercase hover:brightness-110 transition-all active:scale-95 hidden md:block">
+                Pre-order
+            </button>
+<button class="md:hidden text-amber-200">
+<span class="material-symbols-outlined text-2xl">menu</span>
+</button>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-grow pt-32 pb-24 px-6 md:px-12 max-w-[1600px] mx-auto w-full relative overflow-hidden">
+<!-- Decorative Background Element -->
+<div class="absolute top-0 right-0 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
+<!-- Header Section -->
+<header class="mb-24 relative z-10 max-w-4xl">
+<p class="font-label text-primary tracking-[0.2em] uppercase text-sm mb-4 font-bold flex items-center gap-3">
+<span class="w-8 h-[1px] bg-primary"></span>
+                Company Overview
+            </p>
+<h1 class="font-headline text-5xl md:text-7xl font-light tracking-[0.1em] leading-tight text-on-surface">
+                ABOUT US:<br/>
+<span class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-container">THE FUTURE OF LUGGAGE</span>
+</h1>
+</header>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 relative z-10">
+<!-- Column 1: History (Spans 4 columns) -->
+<div class="md:col-span-4 flex flex-col gap-6">
+<div class="glass-card rounded-xl p-8 h-full flex flex-col justify-between ambient-shadow relative overflow-hidden group">
+<div class="absolute inset-0 bg-gradient-to-b from-transparent to-surface-container-lowest/80 pointer-events-none z-0"></div>
+<img alt="Vintage sepia-toned photograph of early 20th century train station with classic leather steamer trunks stacked elegantly" class="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-luminosity group-hover:opacity-30 transition-opacity duration-700 z-0" data-alt="Vintage sepia-toned photograph of early 20th century train station with classic leather steamer trunks stacked elegantly" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYSEFwGY3SKJ--Rxd9UysCy72nHNEof6NTLLWjWKVdDaUKgRtdMQXIiFs4SHvL5RothewHvwH0tFieoIpL9AbVc_mCMtMHAzZH8-TSP4lr7voC_S41svGas0pKBt_HOqfoIZg_s92ftAFyjUxiFbZ2L6c9ka7RcQx47WjETth-FyHArdrIA_rX-CPQZOWPHytumN9VH_kznIVLcY3xO3fd1jTDbKdDmWeGfyTls5t8lwVtpfxOEOwUc2tu-A5QLzcw-HJz3miAFj8"/>
+<div class="relative z-10">
+<h2 class="font-headline text-2xl uppercase tracking-widest text-on-surface mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">history</span>
+                            FOUNDED IN 1910
+                        </h2>
+<p class="font-body text-on-surface-variant leading-relaxed text-sm">
+                            For over a century, we have engineered travel solutions that withstand the test of time and terrain. From early wooden trunks to aerospace-grade polycarbonate, our lineage is defined by relentless innovation and uncompromising structural integrity.
+                        </p>
+</div>
+<div class="relative z-10 mt-12 pt-6 border-t border-outline-variant/30">
+<div class="font-headline text-5xl font-light text-primary tracking-tight mb-2">114</div>
+<div class="font-label text-xs uppercase tracking-widest text-on-surface-variant font-bold">Years in Business</div>
+</div>
+</div>
+</div>
+<!-- Column 2: What We Built (Spans 5 columns) -->
+<div class="md:col-span-5 flex flex-col gap-6">
+<div class="glass-card rounded-xl p-8 h-full ambient-shadow relative overflow-hidden">
+<h2 class="font-headline text-2xl uppercase tracking-widest text-on-surface mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">architecture</span>
+                        WHAT WE BUILT
+                    </h2>
+<p class="font-body text-on-surface-variant leading-relaxed text-sm mb-8">
+                        The Freeform series represents a paradigm shift in luggage architecture. By utilizing an advanced injection-molding process, we achieved unprecedented strength-to-weight ratios, eliminating unnecessary bulk while maximizing interior capacity.
+                    </p>
+<!-- Diagram Placeholder -->
+<div class="w-full aspect-[4/3] bg-surface-container-lowest rounded-lg border border-outline-variant/20 relative overflow-hidden group">
+<!-- Abstract Technical Lines -->
+<div class="absolute inset-0 opacity-30 bg-[linear-gradient(rgba(241,201,125,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(241,201,125,0.1)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
+<div class="absolute inset-0 flex items-center justify-center flex-col">
+<span class="material-symbols-outlined text-4xl text-outline-variant mb-3 group-hover:text-primary transition-colors duration-500" style="font-variation-settings: 'wght' 200;">view_in_ar</span>
+<span class="font-label text-xs uppercase tracking-widest text-outline-variant">Freeform Structural Analysis</span>
+</div>
+<!-- Technical callouts -->
+<div class="absolute top-4 left-4 flex items-center gap-2">
+<div class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></div>
+<span class="font-label text-[10px] text-primary uppercase tracking-widest">Polycarbonate Shell</span>
+</div>
+<div class="absolute bottom-4 right-4 flex items-center gap-2">
+<span class="font-label text-[10px] text-on-surface-variant uppercase tracking-widest">Stress Distribution</span>
+<div class="w-8 h-[1px] bg-on-surface-variant/50"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Column 3: The Problem (Spans 3 columns) -->
+<div class="md:col-span-3 flex flex-col gap-6">
+<!-- Top Card: Problem Description -->
+<div class="glass-card rounded-xl p-6 ambient-shadow bg-surface-container-high/40">
+<h2 class="font-headline text-lg uppercase tracking-widest text-error mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-error text-xl" style="font-variation-settings: 'FILL' 1;">warning</span>
+                        THE PROBLEM
+                    </h2>
+<p class="font-body text-on-surface-variant leading-relaxed text-sm">
+                        Modern travelers are forced into a compromise: sacrifice essentials or pay exorbitant overweight baggage fees. Traditional luggage design wastes critical cubic inches on inefficient structural supports and bulky wheel housings.
+                    </p>
+</div>
+<!-- Bottom Card: Statistic -->
+<div class="glass-card rounded-xl p-6 h-full ambient-shadow flex flex-col justify-center items-center text-center relative overflow-hidden bg-gradient-to-br from-surface-container-high to-surface-container-low">
+<!-- Subtle radial gradient behind stat -->
+<div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(241,201,125,0.05)_0%,transparent_70%)]"></div>
+<div class="relative z-10 w-full">
+<div class="font-headline text-7xl font-light text-on-surface mb-2 tracking-tighter">
+                            2 <span class="text-3xl text-outline-variant font-body mx-1">in</span> 3
+                        </div>
+<div class="w-12 h-[1px] bg-primary/50 mx-auto mb-4"></div>
+<p class="font-label text-xs uppercase tracking-widest text-on-surface-variant leading-loose">
+                            Travelers admit to leaving essential items behind due to <span class="text-primary font-bold">space constraints</span>.
+                        </p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-16 border-t border-stone-800/30 bg-stone-950 text-stone-500">
+<div class="max-w-7xl mx-auto px-12 flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="text-lg font-bold tracking-tighter text-stone-200 uppercase font-headline">SAMSONITE</div>
+<div class="flex flex-wrap justify-center gap-6 font-['Inter'] text-xs tracking-wider leading-relaxed uppercase">
+<a class="hover:text-stone-200 transition-opacity duration-200" href="#">Sustainability</a>
+<a class="hover:text-stone-200 transition-opacity duration-200" href="#">Warranty</a>
+<a class="hover:text-stone-200 transition-opacity duration-200" href="#">Global Support</a>
+<a class="hover:text-stone-200 transition-opacity duration-200" href="#">Privacy Policy</a>
+</div>
+<div class="font-['Inter'] text-xs tracking-wider leading-relaxed">
+                © 2024 Samsonite Cinematic Engineering. All Rights Reserved.
+            </div>
+</div>
+</footer>
+</body></html>

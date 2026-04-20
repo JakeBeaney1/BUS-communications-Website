@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Financials: Projections &amp; Pricing - Kinetic Architect</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-background": "#e2e2e2",
+                        "secondary-fixed": "#e4e2e1",
+                        "surface-container-highest": "#353535",
+                        "primary-container": "#d4ad65",
+                        "tertiary-fixed": "#fadfb4",
+                        "on-secondary-container": "#b6b5b4",
+                        "surface-container": "#1f1f1f",
+                        "inverse-primary": "#775a19",
+                        "background": "#131313",
+                        "on-error-container": "#ffdad6",
+                        "secondary": "#c8c6c5",
+                        "on-surface-variant": "#d0c5af",
+                        "on-error": "#690005",
+                        "surface-dim": "#131313",
+                        "surface-variant": "#353535",
+                        "surface-container-low": "#1b1b1b",
+                        "error-container": "#93000a",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "on-surface": "#e2e2e2",
+                        "inverse-surface": "#e2e2e2",
+                        "surface-bright": "#393939",
+                        "inverse-on-surface": "#303030",
+                        "on-primary-fixed-variant": "#5d4201",
+                        "on-primary-fixed": "#261900",
+                        "outline-variant": "#4d4635",
+                        "tertiary-container": "#c8b088",
+                        "primary": "#f1c97d",
+                        "secondary-container": "#474747",
+                        "error": "#ffb4ab",
+                        "outline": "#99907c",
+                        "surface-tint": "#e9c176",
+                        "on-primary": "#412d00",
+                        "on-tertiary-fixed-variant": "#554425",
+                        "on-tertiary": "#3d2e10",
+                        "on-secondary-fixed": "#1b1c1c",
+                        "surface-container-high": "#2a2a2a",
+                        "primary-fixed": "#ffdea5",
+                        "primary-fixed-dim": "#e9c176",
+                        "tertiary-fixed-dim": "#dcc39a",
+                        "surface": "#131313",
+                        "surface-container-lowest": "#0e0e0e",
+                        "on-secondary": "#303030",
+                        "on-tertiary-fixed": "#261901",
+                        "on-tertiary-container": "#544323",
+                        "on-secondary-fixed-variant": "#474747",
+                        "tertiary": "#e5cba2",
+                        "on-primary-container": "#5b4000"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {},
+                    "fontFamily": {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #131313;
+            color: #e2e2e2;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background-color: rgba(42, 42, 42, 0.6);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(77, 70, 53, 0.15);
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+            border-color: rgba(77, 70, 53, 0.4);
+        }
+        .gold-gradient {
+            background: linear-gradient(45deg, #f1c97d, #d4ad65);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="font-body text-on-surface bg-background min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="bg-[#131313] dark:bg-[#131313] fixed top-0 w-full z-50 flex justify-between items-center px-12 h-20 shadow-[0_60px_60px_rgba(241,201,125,0.04)] bg-[#1b1b1b]">
+<div class="text-2xl font-bold tracking-widest text-[#f1c97d] font-headline uppercase">
+            KINETIC ARCHITECT
+        </div>
+<div class="hidden md:flex space-x-8">
+<a class="font-['Space_Grotesk'] tracking-[0.2em] uppercase text-[#e2e2e2] opacity-60 hover:text-[#f1c97d] transition-colors duration-300 text-sm" href="#">Models</a>
+<a class="font-['Space_Grotesk'] tracking-[0.2em] uppercase text-[#e2e2e2] opacity-60 hover:text-[#f1c97d] transition-colors duration-300 text-sm" href="#">Engineering</a>
+<a class="font-['Space_Grotesk'] tracking-[0.2em] uppercase text-[#e2e2e2] opacity-60 hover:text-[#f1c97d] transition-colors duration-300 text-sm" href="#">Performance</a>
+<a class="font-['Space_Grotesk'] tracking-[0.2em] uppercase text-[#f1c97d] border-b-2 border-[#f1c97d] pb-1 hover:text-[#f1c97d] transition-colors duration-300 text-sm" href="#">Financials</a>
+</div>
+<div class="flex items-center space-x-6 text-[#f1c97d]">
+<button class="scale-95 duration-200 hover:text-primary-container">
+<span class="material-symbols-outlined text-2xl">account_circle</span>
+</button>
+</div>
+</nav>
+<div class="flex flex-1 pt-20">
+<!-- SideNavBar -->
+<aside class="hidden lg:flex bg-[#1b1b1b] dark:bg-[#1b1b1b] fixed left-0 top-20 h-full flex-col py-8 w-64 border-r border-[#4d4635]/15 z-40 bg-[#1b1b1b]">
+<div class="px-8 mb-10">
+<h3 class="text-[#e2e2e2] font-headline tracking-widest text-sm mb-1 opacity-60 uppercase">STRATEGIC UNIT</h3>
+<p class="text-[#e2e2e2] opacity-40 text-xs font-label uppercase">FY2024-26</p>
+</div>
+<nav class="flex-1 flex flex-col space-y-2">
+<a class="flex items-center px-8 py-4 text-[#f1c97d] bg-[#2a2a2a] border-r-4 border-[#f1c97d] hover:bg-[#2a2a2a] hover:opacity-100 transition-all duration-300 group" href="#">
+<span class="material-symbols-outlined mr-4 text-xl">insights</span>
+<span class="font-['Space_Grotesk'] font-medium text-xs tracking-wider uppercase">Projections</span>
+</a>
+<a class="flex items-center px-8 py-4 text-[#e2e2e2] opacity-40 hover:bg-[#2a2a2a] hover:opacity-100 transition-all duration-300 group" href="#">
+<span class="material-symbols-outlined mr-4 text-xl">bar_chart</span>
+<span class="font-['Space_Grotesk'] font-medium text-xs tracking-wider uppercase">Sales Data</span>
+</a>
+<a class="flex items-center px-8 py-4 text-[#e2e2e2] opacity-40 hover:bg-[#2a2a2a] hover:opacity-100 transition-all duration-300 group" href="#">
+<span class="material-symbols-outlined mr-4 text-xl">query_stats</span>
+<span class="font-['Space_Grotesk'] font-medium text-xs tracking-wider uppercase">Breakeven</span>
+</a>
+<a class="flex items-center px-8 py-4 text-[#e2e2e2] opacity-40 hover:bg-[#2a2a2a] hover:opacity-100 transition-all duration-300 group" href="#">
+<span class="material-symbols-outlined mr-4 text-xl">inventory_2</span>
+<span class="font-['Space_Grotesk'] font-medium text-xs tracking-wider uppercase">Inventory</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 ml-0 lg:ml-64 p-8 lg:p-16 overflow-y-auto">
+<!-- Page Header -->
+<header class="mb-16">
+<h1 class="font-headline text-5xl md:text-6xl tracking-[0.15em] font-medium mb-4 text-on-surface">PROJECTIONS &amp; PRICING</h1>
+<p class="font-body text-on-surface-variant text-lg max-w-2xl leading-relaxed">Financial forecasting models and baseline pricing structures engineered for optimal market penetration.</p>
+</header>
+<!-- Pricing Section (Bento Grid) -->
+<section class="mb-24">
+<h2 class="font-headline text-primary tracking-widest text-sm uppercase mb-8 flex items-center">
+<span class="material-symbols-outlined mr-2 text-base">sell</span> Unit Pricing Architecture
+                </h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Pricing Card 1 -->
+<div class="glass-card rounded-xl p-8 relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-surface-container to-surface-container opacity-50 group-hover:from-primary group-hover:to-primary-container transition-all duration-500"></div>
+<div class="mb-12">
+<h3 class="font-headline text-xl text-on-surface tracking-wider mb-2 uppercase">Large Check-In</h3>
+<p class="font-body text-xs text-on-surface-variant opacity-70">Model: Alpha-01</p>
+</div>
+<div class="flex items-baseline mb-6">
+<span class="font-headline text-2xl text-on-surface opacity-50 mr-1">$</span>
+<span class="font-headline text-5xl text-primary font-medium tracking-tight">316.49</span>
+</div>
+<div class="border-t border-outline-variant/20 pt-6 mt-8">
+<ul class="space-y-3 font-label text-xs text-on-surface-variant opacity-80">
+<li class="flex justify-between"><span>COGS:</span> <span class="text-on-surface">$142.10</span></li>
+<li class="flex justify-between"><span>Margin:</span> <span class="text-primary">55%</span></li>
+</ul>
+</div>
+</div>
+<!-- Pricing Card 2 -->
+<div class="glass-card rounded-xl p-8 relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-surface-container to-surface-container opacity-50 group-hover:from-primary group-hover:to-primary-container transition-all duration-500"></div>
+<div class="mb-12">
+<h3 class="font-headline text-xl text-on-surface tracking-wider mb-2 uppercase">Carry-On</h3>
+<p class="font-body text-xs text-on-surface-variant opacity-70">Model: Beta-02</p>
+</div>
+<div class="flex items-baseline mb-6">
+<span class="font-headline text-2xl text-on-surface opacity-50 mr-1">$</span>
+<span class="font-headline text-5xl text-primary font-medium tracking-tight">238.74</span>
+</div>
+<div class="border-t border-outline-variant/20 pt-6 mt-8">
+<ul class="space-y-3 font-label text-xs text-on-surface-variant opacity-80">
+<li class="flex justify-between"><span>COGS:</span> <span class="text-on-surface">$105.00</span></li>
+<li class="flex justify-between"><span>Margin:</span> <span class="text-primary">56%</span></li>
+</ul>
+</div>
+</div>
+<!-- Pricing Card 3 -->
+<div class="glass-card rounded-xl p-8 relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-surface-container to-surface-container opacity-50 group-hover:from-primary group-hover:to-primary-container transition-all duration-500"></div>
+<div class="mb-12">
+<h3 class="font-headline text-xl text-on-surface tracking-wider mb-2 uppercase">Bundle</h3>
+<p class="font-body text-xs text-on-surface-variant opacity-70">Model: Sigma Set</p>
+</div>
+<div class="flex items-baseline mb-6">
+<span class="font-headline text-2xl text-on-surface opacity-50 mr-1">$</span>
+<span class="font-headline text-5xl text-primary font-medium tracking-tight">439.74</span>
+</div>
+<div class="border-t border-outline-variant/20 pt-6 mt-8">
+<ul class="space-y-3 font-label text-xs text-on-surface-variant opacity-80">
+<li class="flex justify-between"><span>Combined COGS:</span> <span class="text-on-surface">$220.00</span></li>
+<li class="flex justify-between"><span>Margin:</span> <span class="text-primary">50%</span></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- Charts Section -->
+<section>
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
+<!-- Chart 1: Breakeven -->
+<div class="bg-surface-container-low rounded-xl p-8 border border-outline-variant/15 flex flex-col h-[500px]">
+<div class="mb-8 flex justify-between items-start">
+<div>
+<h3 class="font-headline text-lg tracking-widest uppercase text-on-surface mb-1">Breakeven Units Detail</h3>
+<p class="font-label text-xs text-on-surface-variant opacity-60">Volume required to cover fixed costs.</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant opacity-40">ssid_chart</span>
+</div>
+<!-- Pseudo Chart Canvas -->
+<div class="flex-1 relative flex items-end justify-around pb-10 border-b border-outline-variant/30 px-4">
+<!-- Y-Axis Lines -->
+<div class="absolute inset-0 flex flex-col justify-between pb-10 z-0 pointer-events-none">
+<div class="border-t border-outline-variant/10 w-full relative"><span class="absolute -left-8 -top-2 text-[10px] text-on-surface-variant/40 font-label">2k</span></div>
+<div class="border-t border-outline-variant/10 w-full relative"><span class="absolute -left-8 -top-2 text-[10px] text-on-surface-variant/40 font-label">1.5k</span></div>
+<div class="border-t border-outline-variant/10 w-full relative"><span class="absolute -left-8 -top-2 text-[10px] text-on-surface-variant/40 font-label">1k</span></div>
+<div class="border-t border-outline-variant/10 w-full relative"><span class="absolute -left-8 -top-2 text-[10px] text-on-surface-variant/40 font-label">500</span></div>
+</div>
+<!-- Bars -->
+<div class="relative z-10 w-16 h-[60%] bg-surface-container-high border border-outline-variant/30 flex flex-col justify-end items-center group">
+<div class="w-full bg-primary/20 h-full transition-all group-hover:bg-primary/40"></div>
+<span class="absolute -bottom-8 font-label text-[10px] text-on-surface-variant text-center whitespace-nowrap">Large Check-In</span>
+<span class="absolute -top-6 font-headline text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">1,240</span>
+</div>
+<div class="relative z-10 w-16 h-[85%] bg-surface-container-high border border-outline-variant/30 flex flex-col justify-end items-center group">
+<div class="w-full bg-primary/80 h-full transition-all group-hover:bg-primary"></div>
+<span class="absolute -bottom-8 font-label text-[10px] text-on-surface-variant text-center">Carry-On</span>
+<span class="absolute -top-6 font-headline text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">1,850</span>
+</div>
+<div class="relative z-10 w-16 h-[40%] bg-surface-container-high border border-outline-variant/30 flex flex-col justify-end items-center group">
+<div class="w-full bg-primary/40 h-full transition-all group-hover:bg-primary/60"></div>
+<span class="absolute -bottom-8 font-label text-[10px] text-on-surface-variant text-center">Bundle</span>
+<span class="absolute -top-6 font-headline text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">820</span>
+</div>
+</div>
+</div>
+<!-- Chart 2: Revenue -->
+<div class="bg-surface-container-low rounded-xl p-8 border border-outline-variant/15 flex flex-col h-[500px]">
+<div class="mb-8 flex justify-between items-start">
+<div>
+<h3 class="font-headline text-lg tracking-widest uppercase text-on-surface mb-1">Pro Forma Revenue</h3>
+<p class="font-label text-xs text-on-surface-variant opacity-60">Year 1 vs Year 2 Scenario Analysis</p>
+</div>
+<div class="flex space-x-4">
+<div class="flex items-center"><div class="w-2 h-2 rounded-full bg-surface-container-highest mr-2"></div><span class="text-[10px] font-label text-on-surface-variant">Year 1</span></div>
+<div class="flex items-center"><div class="w-2 h-2 rounded-full bg-primary mr-2"></div><span class="text-[10px] font-label text-on-surface-variant">Year 2</span></div>
+</div>
+</div>
+<!-- Pseudo Chart Canvas -->
+<div class="flex-1 relative flex items-end justify-around pb-10 border-b border-outline-variant/30 px-4">
+<!-- Y-Axis Lines -->
+<div class="absolute inset-0 flex flex-col justify-between pb-10 z-0 pointer-events-none">
+<div class="border-t border-outline-variant/10 w-full relative"><span class="absolute -left-8 -top-2 text-[10px] text-on-surface-variant/40 font-label">5M</span></div>
+<div class="border-t border-outline-variant/10 w-full relative"><span class="absolute -left-8 -top-2 text-[10px] text-on-surface-variant/40 font-label">3.5M</span></div>
+<div class="border-t border-outline-variant/10 w-full relative"><span class="absolute -left-8 -top-2 text-[10px] text-on-surface-variant/40 font-label">2M</span></div>
+<div class="border-t border-outline-variant/10 w-full relative"><span class="absolute -left-8 -top-2 text-[10px] text-on-surface-variant/40 font-label">500k</span></div>
+</div>
+<!-- Bar Groups -->
+<!-- Worst Case -->
+<div class="relative z-10 flex space-x-1 items-end h-full">
+<div class="w-8 h-[25%] bg-surface-container-highest"></div>
+<div class="w-8 h-[45%] bg-primary/60"></div>
+<span class="absolute -bottom-8 w-full text-center font-label text-[10px] text-on-surface-variant">Worst Case</span>
+</div>
+<!-- Most Likely -->
+<div class="relative z-10 flex space-x-1 items-end h-full">
+<div class="w-8 h-[40%] bg-surface-container-highest"></div>
+<div class="w-8 h-[75%] bg-primary/80"></div>
+<span class="absolute -bottom-8 w-full text-center font-label text-[10px] text-on-surface-variant">Most Likely</span>
+</div>
+<!-- Best Case -->
+<div class="relative z-10 flex space-x-1 items-end h-full">
+<div class="w-8 h-[55%] bg-surface-container-highest"></div>
+<div class="w-8 h-[95%] bg-primary"></div>
+<span class="absolute -bottom-8 w-full text-center font-label text-[10px] text-on-surface-variant">Best Case</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+</div>
+<!-- Footer -->
+<footer class="bg-[#0e0e0e] w-full py-6 px-12 flex justify-between items-center mt-auto full-width border-t border-[#4d4635]/10 tonal-shift flat">
+<div class="font-['Manrope'] text-[10px] tracking-widest uppercase text-[#e2e2e2]/40">
+            © 2024 CINEMATIC ENGINEERING DIV. ALL RIGHTS RESERVED.
+        </div>
+<div class="text-[#e2e2e2] opacity-20 font-black text-xl tracking-widest">
+            KA
+        </div>
+<div class="flex space-x-6">
+<a class="font-['Manrope'] text-[10px] tracking-widest uppercase text-[#e2e2e2]/40 hover:text-[#f1c97d]" href="#">Legal</a>
+<a class="font-['Manrope'] text-[10px] tracking-widest uppercase text-[#e2e2e2]/40 hover:text-[#f1c97d]" href="#">Technical Specs</a>
+<a class="font-['Manrope'] text-[10px] tracking-widest uppercase text-[#e2e2e2]/40 hover:text-[#f1c97d]" href="#">Privacy</a>
+</div>
+</footer>
+</body></html>
