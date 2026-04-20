@@ -2,28 +2,34 @@ import React from 'react';
 
 const teamMembers = [
   {
-    name: 'Executive Director',
+    name: 'Jake Beaney',
     role: 'Strategy & Operations',
     description: 'Guiding the overarching vision and ensuring kinetic engineering principles reach the market efficiently.',
-    initials: 'ED'
+    initials: 'JB'
   },
   {
-    name: 'Lead Engineer',
+    name: 'Daniel Talisman',
     role: 'Aerospace Architecture',
     description: 'Translating high-performance material science into consumer-scale travel solutions.',
-    initials: 'LE'
+    initials: 'DT'
   },
   {
-    name: 'Financial Architect',
+    name: 'Y Phinh Ly',
     role: 'Projections & Modeling',
     description: 'Structuring robust pricing models and sustainable growth trajectories for long-term dominance.',
-    initials: 'FA'
+    initials: 'YL'
   },
   {
-    name: 'Creative Director',
+    name: 'Elise Kney',
     role: 'Brand & UX Design',
-    description: 'Crafting the premium, uncompromising aesthetic language that defines the Kinetic brand.',
-    initials: 'CD'
+    description: 'Crafting the premium, uncompromising aesthetic language that defines the brand.',
+    initials: 'EK'
+  },
+  {
+    name: 'Sena Furat',
+    role: 'Marketing & Partnerships',
+    description: 'Architecting market penetration strategies and driving digital campaign momentum.',
+    initials: 'SF'
   }
 ];
 

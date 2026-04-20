@@ -5,7 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 // Note: Vite can import the video if we want to ensure it's in the build pipeline
-import heroVideo from '../../assets/3d/Video For 3D interaction.mp4';
+import heroVideo from '../../assets/3d/hero-video.mp4';
 
 const Hero = () => {
   const containerRef = useRef(null);
