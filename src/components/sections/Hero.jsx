@@ -4,8 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Note: Vite can import the video if we want to ensure it's in the build pipeline
-import heroVideo from '../../assets/3d/hero-video.mp4';
+// Video is routed directly from the public/ folder for Vercel/GitHub Pages compatibility
 
 const Hero = () => {
   const containerRef = useRef(null);
@@ -56,7 +55,7 @@ const Hero = () => {
       <div className="absolute inset-0 z-0">
         <video
           ref={videoRef}
-          src={heroVideo}
+          src={`${import.meta.env.BASE_URL}hero-video.mp4`}
           className="w-full h-full object-cover object-center opacity-40 mix-blend-luminosity"
           style={{ willChange: 'transform' }}
           autoPlay={false}
