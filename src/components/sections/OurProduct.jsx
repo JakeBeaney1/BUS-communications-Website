@@ -82,7 +82,7 @@ const OurProduct = () => {
           {/* Column 3: The Problem (Spans 3 columns) */}
           <div className="md:col-span-3 flex flex-col gap-6">
             {/* Top Card: Problem Description */}
-            <div className="glass-panel liquid-glass rounded-xl p-6 shadow-[0_20px_60px_rgba(241,201,125,0.06)] bg-surface-container-high/40">
+            <div className="glass-panel liquid-glass rounded-xl p-6 shadow-[0_20px_60px_rgba(241,201,125,0.06)] bg-surface-container-high/40 shrink-0 relative overflow-hidden">
               <h3 className="font-headline text-lg uppercase tracking-widest text-error mb-4 flex items-center gap-2">
                 <span className="material-symbols-outlined text-error text-xl">warning</span>
                 THE PROBLEM
@@ -93,7 +93,7 @@ const OurProduct = () => {
             </div>
             
             {/* Bottom Card: Statistic */}
-            <div className="glass-panel liquid-glass rounded-xl p-6 h-full shadow-[0_20px_60px_rgba(241,201,125,0.06)] flex flex-col justify-center items-center text-center relative overflow-hidden bg-gradient-to-br from-surface-container-high to-surface-container-low min-h-[250px]">
+            <div className="glass-panel liquid-glass rounded-xl p-6 shadow-[0_20px_60px_rgba(241,201,125,0.06)] flex-grow flex flex-col justify-center items-center text-center relative overflow-hidden bg-gradient-to-br from-surface-container-high to-surface-container-low min-h-[250px]">
               {/* Subtle radial gradient behind stat */}
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(241,201,125,0.05)_0%,transparent_70%)]"></div>
               <div className="relative z-10 w-full">
