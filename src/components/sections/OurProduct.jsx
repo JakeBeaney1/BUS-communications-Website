@@ -37,11 +37,11 @@ const OurProduct = () => {
                   FOUNDED IN 1910
                 </h3>
                 <p className="font-body text-on-surface-variant leading-relaxed text-sm">
-                  For over a century, we have engineered travel solutions that withstand the test of time and terrain. From early wooden trunks to aerospace-grade polycarbonate, our lineage is defined by relentless innovation and uncompromising structural integrity.
+                  Founded in 1910, Samsonite has revolutionized the suitcase market and is the world's largest travel luggage company — known for quality and durability.
                 </p>
               </div>
               <div className="relative z-10 mt-12 pt-6 border-t border-outline-variant/30">
-                <div className="font-headline text-5xl font-light text-primary tracking-tight mb-2">114</div>
+                <div className="font-headline text-5xl font-light text-primary tracking-tight mb-2">115</div>
                 <div className="font-label text-xs uppercase tracking-widest text-on-surface-variant font-bold">Years in Business</div>
               </div>
             </div>
@@ -52,10 +52,10 @@ const OurProduct = () => {
             <div className="glass-panel liquid-glass rounded-xl p-8 h-full shadow-[0_20px_60px_rgba(241,201,125,0.06)] relative overflow-hidden">
               <h3 className="font-headline text-2xl uppercase tracking-widest text-on-surface mb-6 flex items-center gap-2">
                 <span className="material-symbols-outlined text-primary">architecture</span>
-                WHAT WE BUILT
+                EXECUTIVE SUMMARY
               </h3>
               <p className="font-body text-on-surface-variant leading-relaxed text-sm mb-8">
-                The Freeform series represents a paradigm shift in luggage architecture. By utilizing an advanced injection-molding process, we achieved unprecedented strength-to-weight ratios, eliminating unnecessary bulk while maximizing interior capacity.
+                Our product takes Samsonite's proven hard-shell technology and adds what has always been missing — vacuum compressible pockets built directly into the case. Pack more. Bring less.
               </p>
               
               {/* Diagram Placeholder */}
@@ -88,7 +88,7 @@ const OurProduct = () => {
                 THE PROBLEM
               </h3>
               <p className="font-body text-on-surface-variant leading-relaxed text-sm">
-                Modern travelers are forced into a compromise: sacrifice essentials or pay exorbitant overweight baggage fees. Traditional luggage design wastes critical cubic inches on inefficient structural supports and bulky wheel housings.
+                Travelers consistently overpack or bring extra bags — not because they want to, but because hard-shell suitcases waste internal space. The Freeform eliminates that waste.
               </p>
             </div>
             

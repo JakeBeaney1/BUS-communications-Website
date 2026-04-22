@@ -1,199 +1,453 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, Cell, LabelList } from 'recharts';
 
-const breakevenData = [
-  { label: "Large Check-In", units: "32,259", height: "67%", fill: "bg-primary/20", hoverFill: "bg-primary/40" },
-  { label: "Carry-On", units: "43,012", height: "90%", fill: "bg-primary/80", hoverFill: "bg-primary", delay: "delay-100" },
-  { label: "Bundle", units: "25,807", height: "54%", fill: "bg-primary/40", hoverFill: "bg-primary/60", delay: "delay-200" }
+// --- Animated Count Utility ---
+const animateCount = (element, endValue, duration) => {
+  let startTimestamp = null;
+  const step = (timestamp) => {
+    if (!startTimestamp) startTimestamp = timestamp;
+    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+    const easeOut = 1 - Math.pow(1 - progress, 4);
+    const currentValue = Math.floor(easeOut * endValue);
+    element.textContent = currentValue.toLocaleString();
+    if (progress < 1) window.requestAnimationFrame(step);
+    else element.textContent = endValue.toLocaleString();
+  };
+  window.requestAnimationFrame(step);
+};
+
+const AnimatedCount = ({ value }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "0px 0px -20px 0px" });
+  useEffect(() => {
+    if (isInView && ref.current && !ref.current.hasAnimated) {
+      animateCount(ref.current, value, 1500);
+      ref.current.hasAnimated = true;
+    }
+  }, [isInView, value]);
+  return <tspan ref={ref}>0</tspan>;
+};
+
+const CustomCountUpLabel = (props) => {
+  const { x, y, width, value } = props;
+  return (
+    <g transform={`translate(${x + width / 2},${y - 15})`}>
+      <text x={0} y={0} fill="#c8a96e" textAnchor="middle" dominantBaseline="middle" className="font-headline font-bold text-lg drop-shadow-[0_0_8px_rgba(241,201,125,0.4)]">
+        <AnimatedCount value={value} />
+      </text>
+    </g>
+  );
+};
+
+// --- Bloomberg Styled Table ---
+const BloombergTable = ({ headers, subHeaders, rows }) => (
+  <div className="w-full overflow-x-auto mt-6 border border-outline-variant/30 rounded-lg shadow-[0_0_20px_rgba(0,0,0,0.5)]">
+    <table className="w-full text-left border-collapse font-mono text-[11px] md:text-sm whitespace-nowrap">
+      <thead className="bg-[#c8a96e] text-black">
+        {headers && (
+          <tr>
+            {headers.map((h, i) => (
+              <th key={i} colSpan={h.colSpan || 1} className={`p-3 font-bold uppercase tracking-widest border-r border-[#ae8e4a] ${h.align || 'text-left'}`}>
+                {h.label}
+              </th>
+            ))}
+          </tr>
+        )}
+        {subHeaders && (
+          <tr className="bg-[#ae8e4a] text-black/90">
+             {subHeaders.map((sh, i) => (
+               <th key={i} className={`p-2 border-r border-black/10 font-medium ${sh.align || 'text-right'}`}>
+                 {sh.label}
+               </th>
+             ))}
+          </tr>
+        )}
+      </thead>
+      <tbody>
+         {rows.map((row, i) => (
+           <tr key={i} className={`border-b border-outline-variant/20 hover:bg-[#1a1c23] transition-colors ${i % 2 === 0 ? 'bg-[#1a1a1a]' : 'bg-[#111111]'} ${row.isHighlight ? 'font-bold text-[#c8a96e]' : 'text-[#f5f5f5]'}`}>
+             {row.cells.map((cell, j) => {
+               const valStr = String(cell);
+               const isPositiveMoney = valStr.includes('$') && !valStr.includes('-') && !valStr.includes('Range');
+               const isPercentage = valStr.includes('%');
+               return (
+                 <td key={j} className={`p-3 border-r border-outline-variant/10 ${j === 0 ? 'text-left' : 'text-right'} ${(isPositiveMoney || isPercentage) && !row.isHighlight && j>0 ? 'text-[#39ff14]' : ''}`}>
+                   {cell}
+                 </td>
+               );
+             })}
+           </tr>
+         ))}
+      </tbody>
+    </table>
+  </div>
+);
+
+// --- SVG Circular Progress ---
+const CircularProgress = ({ percentage }) => {
+  const r = 30;
+  const c = Math.PI * (r * 2);
+  const pct = ((100 - percentage) / 100) * c;
+  return (
+    <div className="relative w-20 h-20 flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(241,201,125,0.1)] rounded-full bg-surface-container-highest">
+      <svg className="absolute inset-0 w-full h-full transform -rotate-90">
+        <circle cx="40" cy="40" r="30" stroke="rgba(241,201,125,0.1)" strokeWidth="4" fill="none" />
+        <motion.circle 
+          initial={{ strokeDashoffset: c }}
+          whileInView={{ strokeDashoffset: pct }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.5, ease: "easeOut", delay: 0.2 }}
+          cx="40" cy="40" r="30" 
+          stroke="#c8a96e" 
+          strokeWidth="4" 
+          fill="none" 
+          strokeDasharray={c} 
+          strokeLinecap="round" 
+        />
+      </svg>
+      <div className="text-center">
+        <span className="font-headline text-lg font-bold text-primary leading-none">{percentage}%</span>
+      </div>
+    </div>
+  );
+};
+
+// --- Data ---
+const breakevenChartData = [
+  { name: 'Large Check-In', units: 32259, revenueEquivalent: '$10.2M' },
+  { name: 'Carry-On', units: 43012, revenueEquivalent: '$10.3M' },
+  { name: 'Bundle', units: 25807, revenueEquivalent: '$11.3M' }
 ];
 
-const revenueData = [
-  { 
-    label: "Worst Case", 
-    y1: { val: "$14.0M", height: "35%", delay: "delay-75" }, 
-    y2: { val: "$18.4M", height: "46%", delay: "delay-100" } 
+const bomData = [
+  {
+    name: 'Air Pump Machine', total: '$17.10',
+    components: ['Mini diaphragm pump', 'DC motor', 'Lithium battery (2000 mAh)', 'PCB + charging module', 'Plastic casing (ABS)', 'Nozzle'],
+    manufacturing: ['Assembly labor', 'Packaging', 'Quality control', 'Shipping (bulk/unit)', 'Factory margin']
   },
-  { 
-    label: "Most Likely", 
-    y1: { val: "$20.8M", height: "52%", delay: "delay-150" }, 
-    y2: { val: "$27.2M", height: "68%", delay: "delay-200" } 
-  },
-  { 
-    label: "Best Case", 
-    y1: { val: "$30.8M", height: "77%", delay: "delay-300" }, 
-    y2: { val: "$40.0M", height: "100%", delay: "delay-500" } 
+  {
+    name: 'Vacuum Bag', total: '$18.40',
+    components: ['Nylon/polyester fabric (outer)', 'TPU airtight inner layer', 'Heavy-duty zipper (airtight)', 'Valve (higher quality)', 'Stitching + reinforcement'],
+    manufacturing: ['Sewing labor', 'Heat sealing inner lining', 'Quality control', 'Factory margin']
   }
 ];
 
-const Financials = () => {
-  const [mounted, setMounted] = useState(false);
+const proFormaData = {
+  year1: [
+    { scenario: 'Worst Case', Revenue: 14324500, GrossProfit: 8594700, OperatingIncome: 6735230 },
+    { scenario: 'Most Likely', Revenue: 21336750, GrossProfit: 12802050, OperatingIncome: 10521845 },
+    { scenario: 'Best Case', Revenue: 31213900, GrossProfit: 18728340, OperatingIncome: 15855506 }
+  ],
+  year2: [
+    { scenario: 'Worst Case', Revenue: 18621850, GrossProfit: 11173110, OperatingIncome: 9555799 },
+    { scenario: 'Most Likely', Revenue: 27737775, GrossProfit: 16642665, OperatingIncome: 14478399 },
+    { scenario: 'Best Case', Revenue: 40578070, GrossProfit: 24346842, OperatingIncome: 21412158 }
+  ]
+};
 
-  useEffect(() => {
-    // Slight delay to ensure the animation fires cleanly after rendering
-    const timer = setTimeout(() => setMounted(true), 150);
-    return () => clearTimeout(timer);
-  }, []);
+const salesForecastData = {
+  Best: [
+    { product: 'Carry-On', units: 160000, revenue: 38198400 },
+    { product: 'Large Check-In', units: 150000, revenue: 47473500 },
+    { product: 'Bundle', units: 140000, revenue: 61563600 }
+  ],
+  Likely: [
+    { product: 'Carry-On', units: 140000, revenue: 33423600 },
+    { product: 'Large Check-In', units: 135000, revenue: 42726150 },
+    { product: 'Bundle', units: 130000, revenue: 57166200 }
+  ],
+  Worst: [
+    { product: 'Carry-On', units: 125000, revenue: 29842500 },
+    { product: 'Large Check-In', units: 120000, revenue: 37978800 },
+    { product: 'Bundle', units: 115000, revenue: 50570100 }
+  ]
+};
+
+const formatDollar = (num) => '$' + num.toLocaleString();
+
+const Financials = () => {
+  const [proFormaYear, setProFormaYear] = useState('year1');
+  const [forecastScenario, setForecastScenario] = useState('Likely');
+
+  const CustomTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="bg-[#111] border border-primary/30 p-4 rounded-lg shadow-[0_0_15px_rgba(241,201,125,0.2)]">
+          <p className="font-headline text-primary uppercase tracking-widest mb-2 font-bold">{label}</p>
+          {payload.map((p, i) => (
+            <p key={i} className="font-mono text-xs mb-1" style={{ color: p.color }}>
+              {p.name}: {p.name === 'units' || p.name === 'Units' ? p.value.toLocaleString() : `$${p.value.toLocaleString()}`}
+            </p>
+          ))}
+          {payload[0].payload.revenueEquivalent && (
+            <p className="font-mono text-xs text-[#39ff14] mt-2 pt-2 border-t border-outline-variant/30">
+              Rev. Equiv: {payload[0].payload.revenueEquivalent}
+            </p>
+          )}
+        </div>
+      );
+    }
+    return null;
+  };
 
   return (
-    <section id="financials" className="flex-grow flex flex-col relative w-full max-w-[1600px] mx-auto px-6 md:px-12 py-24 gap-16">
-      {/* Page Header */}
-      <header className="mb-8">
-        <h2 className="font-headline text-5xl md:text-6xl tracking-[0.15em] font-medium mb-4 text-on-surface">PROJECTIONS &amp; PRICING</h2>
-        <p className="font-body text-on-surface-variant text-lg max-w-2xl leading-relaxed">
-          Financial forecasting models and baseline pricing structures engineered for optimal market penetration.
+    <section id="financials" className="flex-grow flex flex-col relative w-full max-w-[1600px] mx-auto px-6 md:px-12 py-24 gap-24">
+      {/* Ambient background */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[600px] bg-primary/5 rounded-[100%] blur-[120px] pointer-events-none z-0"></div>
+
+      <header className="relative z-10 flex flex-col gap-6 max-w-3xl">
+        <div className="flex items-center gap-4 text-primary font-label text-sm uppercase tracking-widest">
+          <span className="w-8 h-[1px] bg-primary"></span>
+          <span>Financial Architecture</span>
+        </div>
+        <h2 className="font-headline text-5xl md:text-7xl tracking-[0.15em] font-bold text-on-surface uppercase leading-tight">
+          PROJECTIONS<br/>&amp; PRICING
+        </h2>
+        <p className="font-body text-on-surface-variant text-lg leading-relaxed mt-4">
+          Terminal-grade financial modeling and baseline pricing structures engineered for optimal market penetration.
         </p>
       </header>
 
-      {/* Pricing Section (Bento Grid) */}
-      <div className="mb-12">
-        <h3 className="font-headline text-primary tracking-widest text-sm uppercase mb-8 flex items-center">
-          <span className="material-symbols-outlined mr-2 text-base">sell</span> Unit Pricing Architecture
-        </h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Pricing Card 1 */}
-          <div className="glass-panel liquid-glass rounded-xl p-8 relative overflow-hidden group">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-surface-container to-surface-container opacity-50 group-hover:from-primary group-hover:to-primary-container transition-all duration-500"></div>
-            <div className="mb-12">
-              <h4 className="font-headline text-xl text-on-surface tracking-wider mb-2 uppercase">Large Check-In</h4>
-              <p className="font-body text-xs text-on-surface-variant opacity-70">Model: Alpha-01</p>
-            </div>
-            <div className="flex items-baseline mb-6">
-              <span className="font-headline text-2xl text-on-surface opacity-50 mr-1">$</span>
-              <span className="font-headline text-5xl text-primary font-medium tracking-tight">316.49</span>
-            </div>
-            <div className="border-t border-outline-variant/20 pt-6 mt-8">
-              <ul className="space-y-3 font-label text-xs text-on-surface-variant opacity-80">
-                <li className="flex justify-between"><span>COGS:</span> <span className="text-on-surface">$142.10</span></li>
-                <li className="flex justify-between"><span>Margin:</span> <span className="text-primary">55%</span></li>
-              </ul>
+      {/* 5A. PRICING CARDS */}
+      <div className="relative z-10">
+        <h3 className="font-headline text-2xl font-light tracking-widest text-on-surface uppercase mb-8">Unit Economics</h3>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Card 1 */}
+          <div className="glass-panel liquid-glass rounded-xl p-8 flex flex-col group hover:border-primary/40 transition-colors">
+            <h4 className="font-headline text-xl text-primary tracking-wider uppercase mb-2">Large Check-In</h4>
+            <p className="font-body text-xs text-on-surface-variant opacity-80 mb-8">31.1" × 20.9" × 13.8" | 9.6 lbs</p>
+            <div className="flex items-center justify-between mt-auto border-t border-outline-variant/20 pt-6">
+              <div>
+                <p className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant mb-1">MSRP Range</p>
+                <div className="font-headline text-2xl text-on-surface">$316.49<span className="text-sm text-on-surface-variant mx-1">–</span>$319.99</div>
+              </div>
+              <CircularProgress percentage={65} />
             </div>
           </div>
-
-          {/* Pricing Card 2 */}
-          <div className="glass-panel liquid-glass rounded-xl p-8 relative overflow-hidden group">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-surface-container to-surface-container opacity-50 group-hover:from-primary group-hover:to-primary-container transition-all duration-500"></div>
-            <div className="mb-12">
-              <h4 className="font-headline text-xl text-on-surface tracking-wider mb-2 uppercase">Carry-On</h4>
-              <p className="font-body text-xs text-on-surface-variant opacity-70">Model: Beta-02</p>
-            </div>
-            <div className="flex items-baseline mb-6">
-              <span className="font-headline text-2xl text-on-surface opacity-50 mr-1">$</span>
-              <span className="font-headline text-5xl text-primary font-medium tracking-tight">238.74</span>
-            </div>
-            <div className="border-t border-outline-variant/20 pt-6 mt-8">
-              <ul className="space-y-3 font-label text-xs text-on-surface-variant opacity-80">
-                <li className="flex justify-between"><span>COGS:</span> <span className="text-on-surface">$105.00</span></li>
-                <li className="flex justify-between"><span>Margin:</span> <span className="text-primary">56%</span></li>
-              </ul>
+          {/* Card 2 */}
+          <div className="glass-panel liquid-glass rounded-xl p-8 flex flex-col group hover:border-primary/40 transition-colors">
+            <h4 className="font-headline text-xl text-primary tracking-wider uppercase mb-2">Carry-On</h4>
+            <p className="font-body text-xs text-on-surface-variant opacity-80 mb-8">23" × 15" × 10" | 6.5 lbs</p>
+            <div className="flex items-center justify-between mt-auto border-t border-outline-variant/20 pt-6">
+              <div>
+                <p className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant mb-1">MSRP Range</p>
+                <div className="font-headline text-2xl text-on-surface">$238.74<span className="text-sm text-on-surface-variant mx-1">–</span>$239.99</div>
+              </div>
+              <CircularProgress percentage={60} />
             </div>
           </div>
-
-          {/* Pricing Card 3 */}
-          <div className="glass-panel liquid-glass rounded-xl p-8 relative overflow-hidden group">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-surface-container to-surface-container opacity-50 group-hover:from-primary group-hover:to-primary-container transition-all duration-500"></div>
-            <div className="mb-12">
-              <h4 className="font-headline text-xl text-on-surface tracking-wider mb-2 uppercase">Bundle</h4>
-              <p className="font-body text-xs text-on-surface-variant opacity-70">Model: Sigma Set</p>
-            </div>
-            <div className="flex items-baseline mb-6">
-              <span className="font-headline text-2xl text-on-surface opacity-50 mr-1">$</span>
-              <span className="font-headline text-5xl text-primary font-medium tracking-tight">439.74</span>
-            </div>
-            <div className="border-t border-outline-variant/20 pt-6 mt-8">
-              <ul className="space-y-3 font-label text-xs text-on-surface-variant opacity-80">
-                <li className="flex justify-between"><span>Combined COGS:</span> <span className="text-on-surface">$220.00</span></li>
-                <li className="flex justify-between"><span>Margin:</span> <span className="text-primary">50%</span></li>
-              </ul>
+          {/* Card 3 */}
+          <div className="glass-panel liquid-glass rounded-xl p-8 flex flex-col group hover:border-primary/40 transition-colors">
+            <h4 className="font-headline text-xl text-primary tracking-wider uppercase mb-2">Bundle</h4>
+            <p className="font-body text-xs text-on-surface-variant opacity-80 mb-8">Includes both sizes</p>
+            <div className="flex items-center justify-between mt-auto border-t border-outline-variant/20 pt-6">
+              <div>
+                <p className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant mb-1">MSRP Range</p>
+                <div className="font-headline text-2xl text-on-surface">$439.74<span className="text-sm text-on-surface-variant mx-1">–</span>$439.99</div>
+              </div>
+              <CircularProgress percentage={55} />
             </div>
           </div>
         </div>
       </div>
 
-      {/* Charts Section */}
-      <div>
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
-          {/* Chart 1: Breakeven */}
-          <div className="bg-surface-container-low rounded-xl p-8 border border-outline-variant/15 flex flex-col h-[500px]">
-            <div className="mb-8 flex justify-between items-start">
-              <div>
-                <h4 className="font-headline text-lg tracking-widest uppercase text-on-surface mb-1">Breakeven Units Detail</h4>
-                <p className="font-label text-xs text-on-surface-variant opacity-60">Volume required to cover fixed costs.</p>
+      {/* 5B. BREAKEVEN ANALYSIS */}
+      <div className="relative z-10 w-full">
+        <h3 className="font-headline text-2xl font-light tracking-widest text-on-surface uppercase mb-8">Breakeven Analysis</h3>
+        <div className="bg-surface-container-low rounded-xl p-8 border border-outline-variant/15 flex flex-col lg:flex-row gap-12">
+          <div className="lg:w-1/2 h-[400px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={breakevenChartData} margin={{ top: 40, right: 0, left: -20, bottom: 20 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
+                <XAxis dataKey="name" tick={{fill: '#888', fontSize: 12, fontFamily: 'Inter'}} axisLine={false} tickLine={false} dy={10} />
+                <YAxis tick={{fill: '#888', fontSize: 12, fontFamily: 'Inter'}} axisLine={false} tickLine={false} tickFormatter={(val) => `${val/1000}k`} />
+                <Tooltip content={<CustomTooltip />} cursor={{fill: 'rgba(241,201,125,0.05)'}} />
+                <Bar dataKey="units" fill="#c8a96e" radius={[4, 4, 0, 0]} animationDuration={1500}>
+                  <LabelList content={<CustomCountUpLabel />} />
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+          <div className="lg:w-1/2 flex items-center">
+            <BloombergTable 
+              headers={[
+                { label: "Product", align: "text-left" },
+                { label: "Break-Even Units", align: "text-right" },
+                { label: "Price Range", align: "text-right" },
+                { label: "Gross Margin", align: "text-right" }
+              ]}
+              rows={[
+                { cells: ["Large Check-In", "32,259", "$316.49 - $319.99", "65%"] },
+                { cells: ["Carry-On", "43,012", "$238.74 - $239.99", "60%"] },
+                { cells: ["Bundle", "25,807", "$439.74 - $439.99", "55%"] },
+              ]}
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* 5C. BILL OF MATERIALS */}
+      <div className="relative z-10 w-full">
+        <h3 className="font-headline text-2xl font-light tracking-widest text-on-surface uppercase mb-8">Bill of Materials</h3>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {bomData.map((item, idx) => (
+            <div key={idx} className="bg-[#111] rounded-xl border border-outline-variant/20 overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.8)]">
+              <div className="bg-[#c8a96e] p-4 flex justify-between items-center">
+                <h4 className="font-headline font-bold text-black uppercase tracking-widest text-lg">{item.name}</h4>
+                <div className="bg-black/90 text-[#39ff14] font-mono px-3 py-1 rounded text-sm shadow-inner">{item.total}</div>
               </div>
-              <span className="material-symbols-outlined text-on-surface-variant opacity-40">ssid_chart</span>
-            </div>
-            {/* Pseudo Chart Canvas */}
-            <div className="flex-1 relative flex items-end justify-around pb-10 border-b border-outline-variant/30 px-4">
-              {/* Y-Axis Lines */}
-              <div className="absolute inset-0 flex flex-col justify-between pb-10 z-0 pointer-events-none">
-                <div className="border-t border-outline-variant/10 w-full relative"><span className="absolute -left-8 -top-2 text-[10px] text-on-surface-variant/40 font-label">40k</span></div>
-                <div className="border-t border-outline-variant/10 w-full relative"><span className="absolute -left-8 -top-2 text-[10px] text-on-surface-variant/40 font-label">30k</span></div>
-                <div className="border-t border-outline-variant/10 w-full relative"><span className="absolute -left-8 -top-2 text-[10px] text-on-surface-variant/40 font-label">20k</span></div>
-                <div className="border-t border-outline-variant/10 w-full relative"><span className="absolute -left-8 -top-2 text-[10px] text-on-surface-variant/40 font-label">10k</span></div>
-              </div>
-              
-              {/* Bars Map */}
-              {breakevenData.map((d, i) => (
-                <div key={i} className="relative z-10 w-16 bg-surface-container-high border border-outline-variant/30 flex flex-col justify-end items-center group cursor-pointer transition-all duration-[800ms] hover:-translate-y-2 hover:border-primary/50 ease-out" style={{ height: mounted ? d.height : '0%' }}>
-                  <div className={`w-full ${d.fill} h-full transition-colors duration-300 group-hover:${d.hoverFill} ${d.delay || ''}`}></div>
-                  <span className="absolute -bottom-8 font-label text-[10px] text-on-surface-variant text-center whitespace-nowrap">{d.label}</span>
-                  
-                  {/* Enhanced Interactive Tooltip */}
-                  <div className="absolute -top-14 left-1/2 -translate-x-1/2 bg-surface/90 backdrop-blur-md shadow-2xl border border-primary/30 rounded-lg px-4 py-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-30 transform scale-95 group-hover:scale-100 origin-bottom">
-                       <span className="text-base font-headline text-primary whitespace-nowrap font-medium">{d.units}</span>
-                       <span className="block text-[9px] font-label text-on-surface-variant text-center tracking-widest uppercase mt-0.5">Units</span>
-                       {/* Arrow indicator */}
-                       <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[6px] border-t-primary/30"></div>
+              <div className="p-0 font-mono text-xs text-[#f5f5f5]">
+                {/* Components */}
+                <div className="bg-[#1a1a1a] p-3 border-b border-black/30 font-bold uppercase tracking-wider text-[#ae8e4a]">Component Costs</div>
+                {item.components.map((c, i) => (
+                  <div key={i} className="px-4 py-3 border-b border-outline-variant/10 flex justify-between hover:bg-surface-variant/20">
+                    <span>{c}</span>
                   </div>
+                ))}
+                {/* Manufacturing */}
+                <div className="bg-[#1a1a1a] p-3 border-y border-black/30 font-bold uppercase tracking-wider text-[#ae8e4a] mt-2">Manufacturing Costs</div>
+                {item.manufacturing.map((m, i) => (
+                  <div key={i} className="px-4 py-3 border-b border-outline-variant/10 flex justify-between hover:bg-surface-variant/20">
+                    <span>{m}</span>
+                  </div>
+                ))}
+                {/* Total */}
+                <div className="bg-[#0a0a0a] p-4 flex justify-between border-t-2 border-[#c8a96e] mt-4">
+                  <span className="font-bold text-[#c8a96e] tracking-widest uppercase">Total Unit Cost</span>
+                  <span className="font-bold text-[#39ff14] text-sm">{item.total}</span>
                 </div>
-              ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* 5D. PRO FORMA STATEMENT */}
+      <div className="relative z-10 w-full">
+        <div className="flex justify-between items-end mb-8 flex-wrap gap-4">
+          <h3 className="font-headline text-2xl font-light tracking-widest text-on-surface uppercase">Pro Forma Statement</h3>
+          <div className="flex bg-[#111] border border-primary/30 rounded-lg p-1">
+            <button 
+              onClick={() => setProFormaYear('year1')}
+              className={`px-6 py-2 font-label text-xs uppercase tracking-widest rounded transition-colors ${proFormaYear === 'year1' ? 'bg-primary text-black font-bold' : 'text-on-surface-variant hover:text-primary'}`}
+            >
+              Year 1
+            </button>
+            <button 
+              onClick={() => setProFormaYear('year2')}
+              className={`px-6 py-2 font-label text-xs uppercase tracking-widest rounded transition-colors ${proFormaYear === 'year2' ? 'bg-primary text-black font-bold' : 'text-on-surface-variant hover:text-primary'}`}
+            >
+              Year 2
+            </button>
+          </div>
+        </div>
+        
+        <div className="bg-surface-container-low rounded-xl p-8 border border-outline-variant/15 flex flex-col gap-12">
+          {/* Chart */}
+          <div className="w-full h-[400px]">
+             <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={proFormaData[proFormaYear]} margin={{ top: 20, right: 0, left: 10, bottom: 20 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
+                <XAxis dataKey="scenario" tick={{fill: '#888', fontSize: 12, fontFamily: 'Inter'}} axisLine={false} tickLine={false} dy={10} />
+                <YAxis tick={{fill: '#888', fontSize: 12, fontFamily: 'Inter'}} axisLine={false} tickLine={false} tickFormatter={(val) => `$${val/1000000}M`} />
+                <Tooltip content={<CustomTooltip />} cursor={{fill: 'rgba(241,201,125,0.05)'}} />
+                <Legend iconType="circle" wrapperStyle={{ paddingTop: '20px', fontSize: '12px', fontFamily: 'Inter' }} />
+                <Bar dataKey="Revenue" fill="#c8a96e" radius={[2, 2, 0, 0]} animationDuration={1000} />
+                <Bar dataKey="GrossProfit" fill="#a08a5d" radius={[2, 2, 0, 0]} animationDuration={1000} />
+                <Bar dataKey="OperatingIncome" fill="#39ff14" radius={[2, 2, 0, 0]} animationDuration={1000} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+
+          {/* Table */}
+          <BloombergTable 
+            headers={[
+               { label: "Pro Forma Scenario Matrix", colSpan: 1 },
+               { label: "Year 1 Model", colSpan: 3, align: "text-center" },
+               { label: "Year 2 Model", colSpan: 3, align: "text-center" },
+            ]}
+            subHeaders={[
+               { label: "Metric", align: "text-left" },
+               { label: "Best Cast" }, { label: "Most Likely" }, { label: "Worst Case" },
+               { label: "Best Cast" }, { label: "Most Likely" }, { label: "Worst Case" }
+            ]}
+            rows={[
+               { cells: ["Revenue", "$31,213,900", "$21,336,750", "$14,324,500", "$40,578,070", "$27,737,775", "$18,621,850"] },
+               { cells: ["COGS", "$12,485,560", "$8,534,700", "$5,729,800", "$16,231,228", "$11,095,110", "$7,448,740"] },
+               { cells: ["Gross Profit", "$18,728,340", "$12,802,050", "$8,594,700", "$24,346,842", "$16,642,665", "$11,173,110"], isHighlight: true },
+               { cells: ["Marketing", "$1,872,834", "$1,280,205", "$859,470", "$2,434,684", "$1,664,267", "$1,117,311"] },
+               { cells: ["R&D", "$600,000", "$600,000", "$600,000", "$100,000", "$100,000", "$100,000"] },
+               { cells: ["SG&A", "$400,000", "$400,000", "$400,000", "$400,000", "$400,000", "$400,000"] },
+               { cells: ["Total OpEx", "$2,872,834", "$2,280,205", "$1,859,470", "$2,934,684", "$2,164,267", "$1,617,311"] },
+               { cells: ["Operating Income", "$15,855,506", "$10,521,845", "$6,735,230", "$21,412,158", "$14,478,399", "$9,555,799"], isHighlight: true }
+            ]}
+          />
+        </div>
+      </div>
+
+      {/* 5E. FORECASTED SALES */}
+      <div className="relative z-10 w-full mb-32">
+        <div className="flex justify-between items-end mb-8 flex-wrap gap-4">
+          <h3 className="font-headline text-2xl font-light tracking-widest text-on-surface uppercase">Forecasted Sales (Y1)</h3>
+          <div className="flex bg-[#111] border border-primary/30 rounded-lg p-1">
+            {['Worst', 'Likely', 'Best'].map((scen) => (
+              <button 
+                key={scen}
+                onClick={() => setForecastScenario(scen)}
+                className={`px-6 py-2 font-label text-xs uppercase tracking-widest rounded transition-colors ${forecastScenario === scen ? 'bg-primary text-black font-bold' : 'text-on-surface-variant hover:text-primary'}`}
+              >
+                {scen} Case
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="bg-surface-container-low rounded-xl p-8 border border-outline-variant/15 flex flex-col gap-12">
+          {/* Dual Charts Stacked */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="h-[300px] w-full border border-outline-variant/10 rounded-lg p-4 pb-8 bg-[#111]">
+              <h4 className="font-label text-xs uppercase tracking-widest text-on-surface-variant mb-4 text-center">Unit Volume Projection</h4>
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={salesForecastData[forecastScenario]} margin={{ top: 10, right: 0, left: 10, bottom: 20 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
+                  <XAxis dataKey="product" tick={{fill: '#888', fontSize: 12}} axisLine={false} tickLine={false} dy={5} />
+                  <YAxis tick={{fill: '#888', fontSize: 12}} axisLine={false} tickLine={false} tickFormatter={(val) => `${val/1000}k`} />
+                  <Tooltip content={<CustomTooltip />} cursor={{fill: 'rgba(255,255,255,0.05)'}} />
+                  <Bar dataKey="units" name="Units" fill="#7a8c99" radius={[2, 2, 0, 0]} animationDuration={800} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+            
+            <div className="h-[300px] w-full border border-outline-variant/10 rounded-lg p-4 pb-8 bg-[#111]">
+              <h4 className="font-label text-xs uppercase tracking-widest text-on-surface-variant mb-4 text-center">Revenue Projection</h4>
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={salesForecastData[forecastScenario]} margin={{ top: 10, right: 0, left: 20, bottom: 20 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
+                  <XAxis dataKey="product" tick={{fill: '#888', fontSize: 12}} axisLine={false} tickLine={false} dy={5} />
+                  <YAxis tick={{fill: '#888', fontSize: 12}} axisLine={false} tickLine={false} tickFormatter={(val) => `$${val/1000000}M`} />
+                  <Tooltip content={<CustomTooltip />} cursor={{fill: 'rgba(255,255,255,0.05)'}} />
+                  <Bar dataKey="revenue" name="Revenue" fill="#c8a96e" radius={[2, 2, 0, 0]} animationDuration={800} />
+                </BarChart>
+              </ResponsiveContainer>
             </div>
           </div>
 
-          {/* Chart 2: Revenue */}
-          <div className="bg-surface-container-low rounded-xl p-8 border border-outline-variant/15 flex flex-col h-[500px]">
-            <div className="mb-8 flex justify-between items-start">
-              <div>
-                <h4 className="font-headline text-lg tracking-widest uppercase text-on-surface mb-1">Pro Forma Revenue</h4>
-                <p className="font-label text-xs text-on-surface-variant opacity-60">Year 1 vs Year 2 Scenario Analysis</p>
-              </div>
-              <div className="flex space-x-4">
-                <div className="flex items-center"><div className="w-2 h-2 rounded-full bg-surface-container-highest mr-2"></div><span className="text-[10px] font-label text-on-surface-variant">Year 1</span></div>
-                <div className="flex items-center"><div className="w-2 h-2 rounded-full bg-primary mr-2 shadow-[0_0_8px_rgba(241,201,125,0.4)]"></div><span className="text-[10px] font-label text-on-surface-variant">Year 2</span></div>
-              </div>
-            </div>
-            {/* Pseudo Chart Canvas */}
-            <div className="flex-1 relative flex items-end justify-around pb-10 border-b border-outline-variant/30 px-4">
-              {/* Y-Axis Lines */}
-              <div className="absolute inset-0 flex flex-col justify-between pb-10 z-0 pointer-events-none">
-                <div className="border-t border-outline-variant/10 w-full relative"><span className="absolute -left-8 -top-2 text-[10px] text-on-surface-variant/40 font-label">40M</span></div>
-                <div className="border-t border-outline-variant/10 w-full relative"><span className="absolute -left-8 -top-2 text-[10px] text-on-surface-variant/40 font-label">30M</span></div>
-                <div className="border-t border-outline-variant/10 w-full relative"><span className="absolute -left-8 -top-2 text-[10px] text-on-surface-variant/40 font-label">20M</span></div>
-                <div className="border-t border-outline-variant/10 w-full relative"><span className="absolute -left-8 -top-2 text-[10px] text-on-surface-variant/40 font-label">10M</span></div>
-              </div>
-              
-              {/* Bar Groups Map */}
-              {revenueData.map((d, i) => (
-                <div key={i} className="relative z-10 flex space-x-1 items-end h-full">
-                  {/* Year 1 Bar */}
-                  <div className="w-8 bg-surface-container-highest transition-all duration-1000 hover:bg-surface-variant hover:-translate-y-2 relative group cursor-pointer ease-out" style={{ height: mounted ? d.y1.height : '0%' }}>
-                     <div className="absolute -top-14 left-1/2 -translate-x-1/2 bg-surface/90 backdrop-blur-[8px] shadow-2xl border border-outline-variant rounded-lg px-3 py-1.5 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-30 transform scale-95 group-hover:scale-100 origin-bottom">
-                       <span className="text-xs font-label text-on-surface whitespace-nowrap block text-center mb-0.5 tracking-wider">YEAR 1</span>
-                       <span className="text-sm font-headline text-on-surface font-medium whitespace-nowrap">{d.y1.val}</span>
-                       <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 border-l-[5px] border-l-transparent border-r-[5px] border-r-transparent border-t-[5px] border-t-outline-variant"></div>
-                     </div>
-                  </div>
-                  {/* Year 2 Bar */}
-                  <div className="w-8 bg-primary/60 transition-all duration-1000 hover:bg-primary/80 hover:-translate-y-2 hover:shadow-[0_0_20px_rgba(241,201,125,0.3)] relative group cursor-pointer ease-out" style={{ height: mounted ? d.y2.height : '0%' }}>
-                     <div className="absolute -top-14 left-1/2 -translate-x-1/2 bg-surface/90 backdrop-blur-[8px] shadow-2xl border border-primary/50 border-b-primary rounded-lg px-3 py-1.5 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-30 transform scale-95 group-hover:scale-100 origin-bottom">
-                       <span className="text-xs font-label text-primary/70 whitespace-nowrap block text-center mb-0.5 tracking-wider">YEAR 2</span>
-                       <span className="text-sm font-headline text-primary font-medium whitespace-nowrap">{d.y2.val}</span>
-                       <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 border-l-[5px] border-l-transparent border-r-[5px] border-r-transparent border-t-[5px] border-t-primary/50"></div>
-                     </div>
-                  </div>
-                  <span className="absolute -bottom-8 w-full text-center font-label text-[10px] text-on-surface-variant whitespace-nowrap">{d.label}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+          <BloombergTable 
+             headers={[ { label: "Forecasted Sales Scenarios (Year 1)", colSpan: 4 } ]}
+             subHeaders={[
+               { label: "Product", align: "text-left" },
+               { label: "Best Case" }, { label: "Most Likely" }, { label: "Worst Case" }
+             ]}
+             rows={[
+               { cells: ["Carry-On Units", "160,000", "140,000", "125,000"] },
+               { cells: ["Large Check-In Units", "150,000", "135,000", "120,000"] },
+               { cells: ["Bundle Units", "140,000", "130,000", "115,000"] },
+               { cells: ["Carry-On Revenue", "$38,198,400", "$33,423,600", "$29,842,500"], isHighlight: true },
+               { cells: ["Large Check-In Revenue", "$47,473,500", "$42,726,150", "$37,978,800"], isHighlight: true },
+               { cells: ["Bundle Revenue", "$61,563,600", "$57,166,200", "$50,570,100"], isHighlight: true }
+             ]}
+          />
         </div>
       </div>
     </section>

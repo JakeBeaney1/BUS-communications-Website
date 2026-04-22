@@ -1,0 +1,13 @@
+import puppeteer from 'puppeteer';
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  page.on('console', msg => {
+    if (msg.type() === 'error') console.log('BROWSER ERROR:', msg.text());
+  });
+  page.on('pageerror', err => {
+    console.log('PAGE EXCEPTION:', err);
+  });
+  await page.goto('http://localhost:5178');
+  await browser.close();
+})();

@@ -7,21 +7,12 @@ const Specifications = () => {
   const largeImageBaseUrl = 'https://lh3.googleusercontent.com/aida-public/AB6AXuAr0C-SZKA8vd9u9L8-1zxK0jG3KX0CGXZRKQdH0z9WsfMVpVO_htAGPWCGfenTpIaJ77jEUvq4leSJDnMGimrN0xEeP2prkalLmLPghMLoOW5lJP9hMB5K3WopgBl8tiMn4VciViIQjNLITA3owWM6-V-f1KIRkhSFoWSjBG77yjQuS4JAeeqPIUcz_ShxwOZAuDp3IZLvYTmxCSpUOyxBELnv0952T3r1lUDYjZS4fK8gkCgIQcmcTdCs-2W3sB5My3MhEw4nfYQ';
   const carryImageBaseUrl = 'https://lh3.googleusercontent.com/aida-public/AB6AXuAosQAzSAkNz3kFmh00GFVTzNYdroJRTdFcS45vECjE2PTL_pf8chYO4l_Pnxd44EYtqhzJcQn7ozrtHEPuxyWAly0EBIy18qEkBLzB0JDB_0IkdgQetxNxEnB2WHfhNLEwr9EJ1HkNKJLXlIo73lv88PURme3tcqyHmOOqe-xgF1Llfch27WEOFGuyOTs5jnENenDJ2CeJ3ecclUeacnsGzOt87PtHRWv_PiQ_hgpUBgJklcVYgV293tz-Ko4GIYQyCPtC_xvqpSk';
 
-  const getLargeFilter = (color) => {
+  const getFilter = (color) => {
     switch(color) {
-      case 'grey': return 'grayscale(100%) brightness(3) contrast(0.85)';
-      case 'blue': return 'sepia(100%) hue-rotate(185deg) saturate(300%) brightness(1.2) contrast(1.1)';
+      case 'navy': return 'sepia(100%) hue-rotate(185deg) saturate(300%) brightness(0.8) contrast(1.2)';
+      case 'blackout': return 'brightness(0.3) contrast(1.5) grayscale(100%)';
       case 'black': 
-      default: return 'none';
-    }
-  };
-
-  const getCarryFilter = (color) => {
-    switch(color) {
-      case 'black': return 'brightness(0.55) contrast(1.2) grayscale(100%)';
-      case 'silver': return 'brightness(1.6) contrast(1.1) saturate(0)';
-      case 'grey':
-      default: return 'none';
+      default: return 'brightness(0.65) contrast(1.2) grayscale(100%)';
     }
   };
 
@@ -54,7 +45,7 @@ const Specifications = () => {
               src={largeImageBaseUrl} 
               alt="Large Check-In Suitcase" 
               style={{ 
-                filter: getLargeFilter(largeColor),
+                filter: getFilter(largeColor),
                 WebkitMaskImage: 'radial-gradient(ellipse 80% 80% at 50% 50%, black 60%, transparent 100%)',
                 maskImage: 'radial-gradient(ellipse 80% 80% at 50% 50%, black 60%, transparent 100%)'
               }}
@@ -75,15 +66,15 @@ const Specifications = () => {
                 <h4 className="font-label text-xs uppercase tracking-[0.15em] text-primary mb-3">Dimensions</h4>
                 <div className="grid grid-cols-3 gap-4">
                   <div>
-                    <p className="font-body text-2xl font-light text-on-surface">30.5<span className="text-sm text-on-surface-variant ml-1">in</span></p>
+                    <p className="font-body text-2xl font-light text-on-surface">31.1<span className="text-sm text-on-surface-variant ml-1">in</span></p>
                     <p className="font-label text-[10px] text-on-surface-variant uppercase tracking-wider mt-1">Height</p>
                   </div>
                   <div>
-                    <p className="font-body text-2xl font-light text-on-surface">20.5<span className="text-sm text-on-surface-variant ml-1">in</span></p>
+                    <p className="font-body text-2xl font-light text-on-surface">20.9<span className="text-sm text-on-surface-variant ml-1">in</span></p>
                     <p className="font-label text-[10px] text-on-surface-variant uppercase tracking-wider mt-1">Width</p>
                   </div>
                   <div>
-                    <p className="font-body text-2xl font-light text-on-surface">12.5<span className="text-sm text-on-surface-variant ml-1">in</span></p>
+                    <p className="font-body text-2xl font-light text-on-surface">13.8<span className="text-sm text-on-surface-variant ml-1">in</span></p>
                     <p className="font-label text-[10px] text-on-surface-variant uppercase tracking-wider mt-1">Depth</p>
                   </div>
                 </div>
@@ -96,7 +87,7 @@ const Specifications = () => {
                 </div>
                 <div>
                   <h4 className="font-label text-xs uppercase tracking-[0.15em] text-primary mb-3">Weight</h4>
-                  <p className="font-body text-3xl font-light text-on-surface">11.8<span className="text-lg text-on-surface-variant ml-1">lbs</span></p>
+                  <p className="font-body text-3xl font-light text-on-surface">9.6<span className="text-lg text-on-surface-variant ml-1">lbs</span></p>
                 </div>
               </div>
               {/* Materials & Colors */}
@@ -105,9 +96,9 @@ const Specifications = () => {
                 <p className="font-body text-sm text-on-surface-variant mb-4">Aerospace-grade polycarbonate composite shell with anodized aluminum corner guards.</p>
                 <h4 className="font-label text-[10px] uppercase tracking-[0.15em] text-primary mb-3">Finishes</h4>
                 <div className="flex gap-4">
-                  <button onClick={() => setLargeColor('black')} aria-label="Obsidian Black" className={`w-8 h-8 rounded-full bg-[#1A1A1A] border-2 shadow-inner transition-colors ${largeColor === 'black' ? 'border-primary outline outline-1 outline-offset-2 outline-primary' : 'border-transparent hover:border-surface-variant'}`}></button>
-                  <button onClick={() => setLargeColor('grey')} aria-label="Tungsten Grey" className={`w-8 h-8 rounded-full bg-[#4A4A4A] border-2 shadow-inner transition-colors ${largeColor === 'grey' ? 'border-primary outline outline-1 outline-offset-2 outline-primary' : 'border-transparent hover:border-surface-variant'}`}></button>
-                  <button onClick={() => setLargeColor('blue')} aria-label="Abyss Blue" className={`w-8 h-8 rounded-full bg-[#3B444B] border-2 shadow-inner transition-colors ${largeColor === 'blue' ? 'border-primary outline outline-1 outline-offset-2 outline-primary' : 'border-transparent hover:border-surface-variant'}`}></button>
+                  <button onClick={() => setLargeColor('black')} aria-label="Black" className={`w-8 h-8 rounded-full bg-[#2A2A2A] border-2 shadow-inner transition-colors ${largeColor === 'black' ? 'border-primary outline outline-1 outline-offset-2 outline-primary' : 'border-transparent hover:border-surface-variant'}`}></button>
+                  <button onClick={() => setLargeColor('blackout')} aria-label="Blackout" className={`w-8 h-8 rounded-full bg-[#111111] border-2 shadow-inner transition-colors ${largeColor === 'blackout' ? 'border-primary outline outline-1 outline-offset-2 outline-primary' : 'border-transparent hover:border-surface-variant'}`}></button>
+                  <button onClick={() => setLargeColor('navy')} aria-label="Navy" className={`w-8 h-8 rounded-full bg-[#1A2639] border-2 shadow-inner transition-colors ${largeColor === 'navy' ? 'border-primary outline outline-1 outline-offset-2 outline-primary' : 'border-transparent hover:border-surface-variant'}`}></button>
                 </div>
               </div>
             </div>
@@ -123,7 +114,7 @@ const Specifications = () => {
               src={carryImageBaseUrl} 
               alt="Carry-On Suitcase" 
               style={{ 
-                filter: getCarryFilter(carryColor),
+                filter: getFilter(carryColor),
                 WebkitMaskImage: 'radial-gradient(ellipse 80% 80% at 50% 50%, black 60%, transparent 100%)',
                 maskImage: 'radial-gradient(ellipse 80% 80% at 50% 50%, black 60%, transparent 100%)'
               }}
@@ -144,15 +135,15 @@ const Specifications = () => {
                 <h4 className="font-label text-xs uppercase tracking-[0.15em] text-primary mb-3">Dimensions</h4>
                 <div className="grid grid-cols-3 gap-4">
                   <div>
-                    <p className="font-body text-2xl font-light text-on-surface">22.0<span className="text-sm text-on-surface-variant ml-1">in</span></p>
+                    <p className="font-body text-2xl font-light text-on-surface">23.0<span className="text-sm text-on-surface-variant ml-1">in</span></p>
                     <p className="font-label text-[10px] text-on-surface-variant uppercase tracking-wider mt-1">Height</p>
                   </div>
                   <div>
-                    <p className="font-body text-2xl font-light text-on-surface">14.0<span className="text-sm text-on-surface-variant ml-1">in</span></p>
+                    <p className="font-body text-2xl font-light text-on-surface">15.0<span className="text-sm text-on-surface-variant ml-1">in</span></p>
                     <p className="font-label text-[10px] text-on-surface-variant uppercase tracking-wider mt-1">Width</p>
                   </div>
                   <div>
-                    <p className="font-body text-2xl font-light text-on-surface">9.0<span className="text-sm text-on-surface-variant ml-1">in</span></p>
+                    <p className="font-body text-2xl font-light text-on-surface">10.0<span className="text-sm text-on-surface-variant ml-1">in</span></p>
                     <p className="font-label text-[10px] text-on-surface-variant uppercase tracking-wider mt-1">Depth</p>
                   </div>
                 </div>
@@ -165,7 +156,7 @@ const Specifications = () => {
                 </div>
                 <div>
                   <h4 className="font-label text-xs uppercase tracking-[0.15em] text-primary mb-3">Weight</h4>
-                  <p className="font-body text-3xl font-light text-on-surface">7.2<span className="text-lg text-on-surface-variant ml-1">lbs</span></p>
+                  <p className="font-body text-3xl font-light text-on-surface">6.5<span className="text-lg text-on-surface-variant ml-1">lbs</span></p>
                 </div>
               </div>
               {/* Materials & Colors */}
@@ -174,9 +165,9 @@ const Specifications = () => {
                 <p className="font-body text-sm text-on-surface-variant mb-4">Ultra-lightweight Makrolon® polycarbonate with integrated USB charging port hub.</p>
                 <h4 className="font-label text-[10px] uppercase tracking-[0.15em] text-primary mb-3">Finishes</h4>
                 <div className="flex gap-4">
-                  <button onClick={() => setCarryColor('black')} aria-label="Obsidian Black" className={`w-8 h-8 rounded-full bg-[#1A1A1A] border-2 shadow-inner transition-colors ${carryColor === 'black' ? 'border-primary outline outline-1 outline-offset-2 outline-primary' : 'border-transparent hover:border-surface-variant'}`}></button>
-                  <button onClick={() => setCarryColor('grey')} aria-label="Tungsten Grey" className={`w-8 h-8 rounded-full bg-[#4A4A4A] border-2 shadow-inner transition-colors ${carryColor === 'grey' ? 'border-primary outline outline-1 outline-offset-2 outline-primary' : 'border-transparent hover:border-surface-variant'}`}></button>
-                  <button onClick={() => setCarryColor('silver')} aria-label="Brushed Silver" className={`w-8 h-8 rounded-full bg-[#C0C0C0] border-2 shadow-inner transition-colors ${carryColor === 'silver' ? 'border-primary outline outline-1 outline-offset-2 outline-primary' : 'border-transparent hover:border-surface-variant'}`}></button>
+                  <button onClick={() => setCarryColor('black')} aria-label="Black" className={`w-8 h-8 rounded-full bg-[#2A2A2A] border-2 shadow-inner transition-colors ${carryColor === 'black' ? 'border-primary outline outline-1 outline-offset-2 outline-primary' : 'border-transparent hover:border-surface-variant'}`}></button>
+                  <button onClick={() => setCarryColor('blackout')} aria-label="Blackout" className={`w-8 h-8 rounded-full bg-[#111111] border-2 shadow-inner transition-colors ${carryColor === 'blackout' ? 'border-primary outline outline-1 outline-offset-2 outline-primary' : 'border-transparent hover:border-surface-variant'}`}></button>
+                  <button onClick={() => setCarryColor('navy')} aria-label="Navy" className={`w-8 h-8 rounded-full bg-[#1A2639] border-2 shadow-inner transition-colors ${carryColor === 'navy' ? 'border-primary outline outline-1 outline-offset-2 outline-primary' : 'border-transparent hover:border-surface-variant'}`}></button>
                 </div>
               </div>
             </div>
@@ -187,7 +178,14 @@ const Specifications = () => {
       {/* Global Features List (Bento-ish) */}
       <div className="mt-32 border-t border-surface-container-low pt-24">
         <h3 className="font-headline text-2xl font-light uppercase tracking-[0.2em] text-on-surface text-center mb-16">Universal Hardware Specs</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-1">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-1">
+          {/* Key Feature */}
+          <div className="bg-surface-container-low p-10 flex flex-col items-center text-center col-span-1 border border-primary/20 relative overflow-hidden">
+            <div className="absolute inset-0 bg-primary/5"></div>
+            <span className="material-symbols-outlined text-4xl text-primary mb-6 relative z-10">compress</span>
+            <h4 className="font-headline text-sm uppercase tracking-widest text-on-surface mb-3 relative z-10">Integrated Vacuum Compression</h4>
+            <p className="font-body text-sm text-on-surface-variant leading-relaxed relative z-10">Built-in vacuum compression on both sides. Comes with handheld vacuum compressor — "Compact. Powerful. Travel-Ready."</p>
+          </div>
           {/* Spec Item 1 */}
           <div className="bg-surface-container-low p-10 flex flex-col items-center text-center">
             <span className="material-symbols-outlined text-4xl text-primary mb-6">lock</span>
