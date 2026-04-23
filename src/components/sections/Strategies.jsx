@@ -122,10 +122,10 @@ const Strategies = () => {
                   Re-engage Bench Media + Tourist Tracka data partnership for programmatic video ads across digital channels.
                 </p>
               </div>
-              <ul className="mt-4 space-y-2 font-label text-xs text-on-surface-variant/80">
-                <li className="flex items-center gap-2"><div className="w-1 h-1 bg-primary rounded-full"></div> Bench Media Analytics</li>
-                <li className="flex items-center gap-2"><div className="w-1 h-1 bg-primary rounded-full"></div> Tourist Tracka Integration</li>
-                <li className="flex items-center gap-2"><div className="w-1 h-1 bg-primary rounded-full"></div> Programmatic Delivery</li>
+              <ul className="mt-4 space-y-3 font-label text-sm md:text-base text-on-surface-variant/90">
+                <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 bg-primary rounded-full"></div> Bench Media Analytics</li>
+                <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 bg-primary rounded-full"></div> Tourist Tracka Integration</li>
+                <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 bg-primary rounded-full"></div> Programmatic Delivery</li>
               </ul>
             </div>
             
@@ -141,13 +141,13 @@ const Strategies = () => {
                   All PR box recipients are invited to the Samsonite AirMax Launch Party — an all-expenses-covered long weekend in Nice, France, including tickets to the AirMax Fashion Show.
                 </p>
               </div>
-              <ul className="space-y-2 font-label text-[10px] text-on-surface-variant/full leading-tight flex-grow">
-                <li className="flex items-start gap-2"><div className="w-1 h-1 mt-1 bg-primary rounded-full shrink-0"></div> @jeraldinejeronimojorjette (3.5M IG / 3.7M TT)</li>
-                <li className="flex items-start gap-2"><div className="w-1 h-1 mt-1 bg-primary rounded-full shrink-0"></div> @thebucketlistfamily (3.7M IG / 0.5M TT)</li>
-                <li className="flex items-start gap-2"><div className="w-1 h-1 mt-1 bg-primary rounded-full shrink-0"></div> @Kara and Nate (1.2M IG / 4.43M YT)</li>
-                <li className="flex items-start gap-2"><div className="w-1 h-1 mt-1 bg-primary rounded-full shrink-0"></div> @hjevelyn & Ha Sisters (2.3M IG / 4.96M YT)</li>
-                <li className="flex items-start gap-2"><div className="w-1 h-1 mt-1 bg-primary rounded-full shrink-0"></div> @caseyneistat (2.8M IG / 12.7M YT)</li>
-                <li className="flex items-start gap-2"><div className="w-1 h-1 mt-1 bg-primary rounded-full shrink-0"></div> @Drew Binsky (1.4M IG / 6.86M YT)</li>
+              <ul className="space-y-3 font-label text-xs md:text-sm text-on-surface-variant/90 leading-tight flex-grow mt-2">
+                <li className="flex items-start gap-3"><div className="w-1.5 h-1.5 mt-1.5 bg-primary rounded-full shrink-0"></div> @jeraldinejeronimojorjette (3.5M IG / 3.7M TT)</li>
+                <li className="flex items-start gap-3"><div className="w-1.5 h-1.5 mt-1.5 bg-primary rounded-full shrink-0"></div> @thebucketlistfamily (3.7M IG / 0.5M TT)</li>
+                <li className="flex items-start gap-3"><div className="w-1.5 h-1.5 mt-1.5 bg-primary rounded-full shrink-0"></div> @Kara and Nate (1.2M IG / 4.43M YT)</li>
+                <li className="flex items-start gap-3"><div className="w-1.5 h-1.5 mt-1.5 bg-primary rounded-full shrink-0"></div> @hjevelyn & Ha Sisters (2.3M IG / 4.96M YT)</li>
+                <li className="flex items-start gap-3"><div className="w-1.5 h-1.5 mt-1.5 bg-primary rounded-full shrink-0"></div> @caseyneistat (2.8M IG / 12.7M YT)</li>
+                <li className="flex items-start gap-3"><div className="w-1.5 h-1.5 mt-1.5 bg-primary rounded-full shrink-0"></div> @Drew Binsky (1.4M IG / 6.86M YT)</li>
               </ul>
             </div>
             
@@ -163,10 +163,10 @@ const Strategies = () => {
                   Immersive physical installations in flagship locations. Merging digital configuration with tactile material exploration.
                 </p>
               </div>
-              <ul className="mt-4 space-y-2 font-label text-xs text-on-surface-variant/80">
-                <li className="flex items-center gap-2"><div className="w-1 h-1 bg-primary rounded-full shrink-0"></div> In-store live compression demos</li>
-                <li className="flex items-center gap-2"><div className="w-1 h-1 bg-primary rounded-full shrink-0"></div> Interactive displays (press → compress)</li>
-                <li className="flex items-center gap-2"><div className="w-1 h-1 bg-primary rounded-full shrink-0"></div> Side-by-side compression visualizers</li>
+              <ul className="mt-4 space-y-3 font-label text-sm md:text-base text-on-surface-variant/90">
+                <li className="flex items-start gap-3"><div className="w-1.5 h-1.5 mt-1.5 bg-primary rounded-full shrink-0"></div> In-store live compression demos</li>
+                <li className="flex items-start gap-3"><div className="w-1.5 h-1.5 mt-1.5 bg-primary rounded-full shrink-0"></div> Interactive displays (press → compress)</li>
+                <li className="flex items-start gap-3"><div className="w-1.5 h-1.5 mt-1.5 bg-primary rounded-full shrink-0"></div> Side-by-side compression visualizers</li>
               </ul>
             </div>
           </div>

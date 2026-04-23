@@ -1,33 +1,29 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts';
 
 const animateCount = (element, endValue, duration, prefix = '', suffix = '') => {
   let startTimestamp = null;
   const isFloat = endValue % 1 !== 0;
-  // If the prefix has a dash (like $75-$), we want to only animate the last number.
-  // We handle prefix/suffix as static wrappers.
   
   const step = (timestamp) => {
     if (!startTimestamp) startTimestamp = timestamp;
     const progress = Math.min((timestamp - startTimestamp) / duration, 1);
     
-    // Custom easing function (easeOutQuart)
     const easeOut = 1 - Math.pow(1 - progress, 4);
     
-    const currentValue = (easeOut * endValue).toFixed(isFloat ? 2 : 0);
+    const currentValue = (easeOut * endValue).toFixed(isFloat ? 1 : 0);
     element.innerText = `${prefix}${currentValue}${suffix}`;
     
     if (progress < 1) {
       window.requestAnimationFrame(step);
     } else {
-      element.innerText = `${prefix}${endValue.toFixed(isFloat ? 2 : 0)}${suffix}`;
+      element.innerText = `${prefix}${endValue.toFixed(isFloat ? 1 : 0)}${suffix}`;
     }
   };
   window.requestAnimationFrame(step);
 };
 
-const AnimatedStat = ({ end, duration = 2500, prefix = '', suffix = '', title }) => {
+const AnimatedStat = ({ end, duration = 2500, prefix = '', suffix = '', title, description }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "0px 0px -50px 0px" });
 
@@ -39,25 +35,21 @@ const AnimatedStat = ({ end, duration = 2500, prefix = '', suffix = '', title })
   }, [isInView, end, duration, prefix, suffix]);
 
   return (
-    <div className="glass-panel liquid-glass rounded-xl p-6 border border-outline-variant/15 flex flex-col justify-center text-center group hover:border-primary/50 transition-colors">
+    <div className="glass-panel liquid-glass rounded-xl p-6 border border-outline-variant/15 flex flex-col justify-center text-center group hover:border-primary/50 transition-colors h-full">
       <div className="font-headline text-4xl md:text-5xl font-bold text-primary mb-2 tracking-tight drop-shadow-[0_0_15px_rgba(241,201,125,0.2)]">
         <span ref={ref}>{prefix}0{suffix}</span>
       </div>
-      <div className="font-label text-xs uppercase tracking-widest text-on-surface-variant/80 leading-relaxed">
+      <div className="font-label text-sm uppercase tracking-widest text-on-surface-variant/90 leading-relaxed font-bold mb-2">
         {title}
       </div>
+      {description && (
+        <div className="font-body text-xs text-on-surface-variant/70 leading-relaxed mt-2">
+          {description}
+        </div>
+      )}
     </div>
   );
 };
-
-const marketShareData = [
-  { name: 'Samsonite Group', value: 20, color: '#c8a96e' },
-  { name: 'Other', value: 68, color: '#333333' },
-  { name: 'Away', value: 4, color: '#666666' },
-  { name: 'Rimowa', value: 3, color: '#666666' },
-  { name: 'Travelpro', value: 3, color: '#666666' },
-  { name: 'Monos', value: 2, color: '#666666' }
-];
 
 const competitors = [
   { brand: 'Away', price: '$295 - $395', weakness: 'Standard DTC shell, zero volume flexibility' },
@@ -66,6 +58,30 @@ const competitors = [
   { brand: 'Rimowa', price: '$900 - $1500+', weakness: 'Prohibitive cost, easily dented aluminum' },
   { brand: 'Delsey', price: '$150 - $300', weakness: 'Weak zipper integration, poor security' }
 ];
+
+const ProblemCard = ({ icon, title, description }) => (
+  <motion.div 
+    whileHover={{ y: -5 }} 
+    className="bg-surface-container-low p-8 rounded-xl border border-error/20 hover:border-error/50 transition-colors flex flex-col gap-4 relative overflow-hidden group"
+  >
+    <div className="absolute top-0 right-0 w-32 h-32 bg-error/5 rounded-full blur-3xl -mr-10 -mt-10 transition-all group-hover:bg-error/10"></div>
+    <span className="material-symbols-outlined text-4xl text-error mb-2 relative z-10">{icon}</span>
+    <h4 className="font-headline text-xl text-on-surface uppercase tracking-wider relative z-10">{title}</h4>
+    {description && <p className="font-body text-on-surface-variant text-sm leading-relaxed relative z-10">{description}</p>}
+  </motion.div>
+);
+
+const SolutionCard = ({ icon, title, description }) => (
+  <motion.div 
+    whileHover={{ y: -5 }} 
+    className="bg-surface-container-low p-8 rounded-xl border border-primary/20 hover:border-primary/50 transition-colors flex flex-col gap-4 relative overflow-hidden group h-full"
+  >
+    <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl -mr-10 -mt-10 transition-all group-hover:bg-primary/10"></div>
+    <span className="material-symbols-outlined text-4xl text-primary mb-2 relative z-10">{icon}</span>
+    <h4 className="font-headline text-xl text-on-surface uppercase tracking-wider relative z-10">{title}</h4>
+    {description && <p className="font-body text-on-surface-variant text-sm leading-relaxed relative z-10">{description}</p>}
+  </motion.div>
+);
 
 const MarketCompetition = () => {
   return (
@@ -84,80 +100,142 @@ const MarketCompetition = () => {
         </p>
       </div>
 
-      {/* Animated Stats Grid */}
+      {/* Market Size & Growth */}
       <div>
-        <h3 className="font-headline text-sm text-primary uppercase tracking-[0.2em] mb-8">Industry Trajectory</h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
-          <AnimatedStat end={43} prefix="$" suffix="B" title="Global luggage market valuation (2026)" />
-          <AnimatedStat end={60} prefix="$" suffix="B+" title="Projected market size by 2031 (6.6% CAGR)" />
-          <AnimatedStat end={3.83} prefix="$" suffix="B" title="Smart luggage sub-segment (2024)" />
-          <AnimatedStat end={11} prefix="$" suffix="B+" title="Smart luggage projected by 2033 (12.7% CAGR)" />
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-6">
-          <AnimatedStat end={76.5} suffix="%" title="Share of revenue from travel luggage bags" />
-          <AnimatedStat end={7.27} prefix="$" suffix="B" title="U.S. airline baggage fees collected (2024)" />
-          <AnimatedStat end={100} prefix="$75-$" title="Overweight bag charge per flight" />
+        <h3 className="font-headline text-2xl font-light uppercase tracking-[0.2em] mb-8 text-on-surface flex items-center gap-4">
+          <span className="material-symbols-outlined text-primary">trending_up</span>
+          Market Size &amp; Growth
+        </h3>
+        <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-center">
+          <div className="xl:col-span-4">
+             <ul className="space-y-4 font-body text-base md:text-lg text-on-surface-variant leading-relaxed">
+                <li className="flex items-start gap-3"><div className="w-2 h-2 mt-2.5 bg-primary rounded-full shrink-0"></div> Global luggage market: $43B (2026), projected $60B+ by 2031</li>
+                <li className="flex items-start gap-3"><div className="w-2 h-2 mt-2.5 bg-primary rounded-full shrink-0"></div> Smart luggage sub-segment: $4B today, projected $11B+ by 2033</li>
+                <li className="flex items-start gap-3"><div className="w-2 h-2 mt-2.5 bg-primary rounded-full shrink-0"></div> Smart luggage growing at ~13% CAGR - double the broader market rate</li>
+                <li className="flex items-start gap-3"><div className="w-2 h-2 mt-2.5 bg-primary rounded-full shrink-0"></div> Travel luggage bags account for 76.5% of total industry revenue</li>
+             </ul>
+          </div>
+          <div className="xl:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <AnimatedStat 
+              end={43} prefix="$" suffix="B" 
+              title="Global Luggage Market" 
+            />
+            <AnimatedStat 
+              end={4} prefix="$" suffix="B" 
+              title="Smart Luggage Segment" 
+            />
+            <AnimatedStat 
+              end={13} suffix="%" 
+              title="Smart Luggage CAGR" 
+            />
+            <AnimatedStat 
+              end={76.5} suffix="%" 
+              title="Travel Bags Share" 
+            />
+          </div>
         </div>
       </div>
 
-      {/* Pie Chart & Differentiator Block */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
-        {/* Pie Chart Side */}
-        <div className="lg:col-span-6 bg-surface-container-low rounded-xl p-8 border border-outline-variant/15 flex flex-col h-[500px]">
-          <h3 className="font-headline text-sm text-primary uppercase tracking-[0.2em] mb-4">Market Share Landscape</h3>
-          <div className="flex-grow w-full py-4">
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
-                <Pie
-                  data={marketShareData}
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={100}
-                  outerRadius={160}
-                  paddingAngle={2}
-                  dataKey="value"
-                  animationBegin={200}
-                  animationDuration={1500}
-                >
-                  {marketShareData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} stroke="rgba(255,255,255,0.05)" />
-                  ))}
-                </Pie>
-                <Tooltip 
-                  formatter={(value, name) => [`${value}%`, name]}
-                  contentStyle={{ backgroundColor: 'rgba(10, 10, 10, 0.95)', border: '1px solid rgba(241,201,125,0.3)', borderRadius: '8px', color: '#f5f5f5', padding: '12px' }}
-                  itemStyle={{ color: '#c8a96e', fontWeight: 'bold', fontFamily: 'Inter, sans-serif' }}
-                />
-              </PieChart>
-            </ResponsiveContainer>
+      {/* The Problem */}
+      <div>
+        <h3 className="font-headline text-2xl font-light uppercase tracking-[0.2em] mb-8 text-error flex items-center gap-4">
+          <span className="material-symbols-outlined">warning</span>
+          The Problem In This Growing Market
+        </h3>
+        <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-center">
+           <div className="xl:col-span-4">
+             <ul className="space-y-4 font-body text-base md:text-lg text-on-surface-variant leading-relaxed">
+                <li className="flex items-start gap-3"><div className="w-2 h-2 mt-2.5 bg-error rounded-full shrink-0"></div> Checked bag fees and overweight charges are massive and rising each year</li>
+                <li className="flex items-start gap-3"><div className="w-2 h-2 mt-2.5 bg-error rounded-full shrink-0"></div> U.S. airlines collected $7.27B in baggage fees in 2024</li>
+                <li className="flex items-start gap-3"><div className="w-2 h-2 mt-2.5 bg-error rounded-full shrink-0"></div> Current solutions (rolling, packing cubes, external vacuum bags) are inconvenient workarounds</li>
+             </ul>
           </div>
-          <div className="flex gap-4 flex-wrap justify-center font-label text-xs tracking-widest uppercase text-on-surface-variant">
-            <div className="flex items-center gap-2"><span className="w-3 h-3 bg-primary rounded-full"></span>Samsonite</div>
-            <div className="flex items-center gap-2"><span className="w-3 h-3 bg-[#666] rounded-full"></span>Competitors</div>
-            <div className="flex items-center gap-2"><span className="w-3 h-3 bg-[#333] rounded-full"></span>Other</div>
+          <div className="xl:col-span-8 grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <ProblemCard 
+              icon="payments"
+              title="Massive Fees"
+            />
+            <motion.div 
+              whileHover={{ y: -5 }}
+              className="glass-panel liquid-glass p-8 rounded-xl border border-error/30 flex flex-col justify-center text-center group h-full relative overflow-hidden"
+            >
+               <div className="absolute inset-0 bg-gradient-to-br from-error/5 to-transparent"></div>
+               <div className="relative z-10">
+                  <div className="font-headline text-5xl md:text-6xl font-bold text-error mb-4 tracking-tight drop-shadow-[0_0_15px_rgba(244,67,54,0.3)]">
+                    $7.27B
+                  </div>
+                  <div className="font-label text-sm uppercase tracking-widest text-on-surface-variant leading-relaxed">
+                    Baggage Fees (2024)
+                  </div>
+               </div>
+            </motion.div>
+            <ProblemCard 
+              icon="work_history"
+              title="Inconvenient Workarounds"
+            />
           </div>
         </div>
+      </div>
 
-        {/* Differentiator Callout Side */}
-        <div className="lg:col-span-6">
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-10% 0px' }}
-            transition={{ duration: 0.8 }}
-            className="flex flex-col gap-6"
-          >
-            <div className="inline-block px-4 py-2 bg-primary/10 border border-primary/30 text-primary font-label text-xs uppercase tracking-widest rounded-full w-max">
-              The Disruption
+      {/* The Solution */}
+      <div>
+        <h3 className="font-headline text-2xl font-light uppercase tracking-[0.2em] mb-8 text-primary flex items-center gap-4">
+          <span className="material-symbols-outlined">verified</span>
+          The Freeform Solution
+        </h3>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          {/* Eliminating the second bag */}
+          <div className="flex flex-col gap-6">
+            <div className="inline-block px-4 py-2 bg-primary/10 border border-primary/30 text-primary font-label text-xs uppercase tracking-widest rounded-full w-max mb-2">
+              Eliminating the Second Bag
             </div>
-            <h3 className="font-headline text-4xl lg:text-6xl font-bold uppercase tracking-wide text-on-surface leading-tight drop-shadow-[0_4px_16px_rgba(241,201,125,0.1)]">
-              No suitcase like this exists.
-            </h3>
-            <div className="w-16 h-1 bg-primary mb-2"></div>
-            <p className="font-body text-xl text-on-surface-variant leading-relaxed">
-              No competitor in the premium hard-shell category offers built-in vacuum compression. This is a category-defining product that directly answers the largest pain point in modern travel.
-            </p>
-          </motion.div>
+            <ul className="space-y-4 font-body text-base md:text-lg text-on-surface-variant leading-relaxed mb-2">
+                <li className="flex items-start gap-3"><div className="w-2 h-2 mt-2.5 bg-primary rounded-full shrink-0"></div> Most people check a second bag because they run out of room, not because their stuff is too heavy</li>
+                <li className="flex items-start gap-3"><div className="w-2 h-2 mt-2.5 bg-primary rounded-full shrink-0"></div> Freeform compresses clothing so everything fits in one suitcase</li>
+            </ul>
+            <div className="grid sm:grid-cols-2 gap-6">
+              <SolutionCard 
+                icon="luggage"
+                title="Space Over Weight"
+              />
+              <SolutionCard 
+                icon="compress"
+                title="Total Consolidation"
+              />
+            </div>
+          </div>
+
+          {/* Indirectly helping with weight */}
+          <div className="flex flex-col gap-6">
+             <div className="inline-block px-4 py-2 bg-primary/10 border border-primary/30 text-primary font-label text-xs uppercase tracking-widest rounded-full w-max mb-2">
+              Indirectly Helping With Weight
+            </div>
+            <ul className="space-y-4 font-body text-base md:text-lg text-on-surface-variant leading-relaxed mb-2">
+                <li className="flex items-start gap-3"><div className="w-2 h-2 mt-2.5 bg-primary rounded-full shrink-0"></div> Compression doesn't make clothes lighter, but it helps you pack more intentionally</li>
+                <li className="flex items-start gap-3"><div className="w-2 h-2 mt-2.5 bg-primary rounded-full shrink-0"></div> When you can see how much space you actually have, you're less likely to overpack "just in case" items</li>
+                <li className="flex items-start gap-3"><div className="w-2 h-2 mt-2.5 bg-primary rounded-full shrink-0"></div> People overpack because they're bad at estimating space, not because they need 40 pounds of clothing</li>
+                <li className="flex items-start gap-3"><div className="w-2 h-2 mt-2.5 bg-primary rounded-full shrink-0"></div> Visible room to spare removes the instinct to cram in extras</li>
+            </ul>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-full mt-2">
+               <SolutionCard 
+                icon="scale"
+                title="Intentional Packing"
+              />
+              <SolutionCard 
+                icon="visibility"
+                title="Visual Feedback"
+              />
+              <SolutionCard 
+                icon="psychology"
+                title="The Space Illusion"
+              />
+              <SolutionCard 
+                icon="check_circle"
+                title="Removing the Urge"
+              />
+            </div>
+          </div>
         </div>
       </div>
 
@@ -202,36 +280,6 @@ const MarketCompetition = () => {
                 Vacuum Compression: <span className="text-sm font-bold">✓</span>
               </span>
             </div>
-          </motion.div>
-        </div>
-      </div>
-
-      {/* Target Market Block */}
-      <div>
-        <div className="flex items-center gap-4 text-primary font-label text-[10px] uppercase tracking-[0.2em] mb-8 justify-center">
-          <span className="w-4 h-[1px] bg-primary"></span>
-          <span>Demographic Definition</span>
-          <span className="w-4 h-[1px] bg-primary"></span>
-        </div>
-        <h3 className="font-headline text-3xl font-light tracking-[0.2em] text-on-surface uppercase mb-12 text-center">
-          Frequent Flyers & Core Audiences
-        </h3>
-        
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <motion.div whileHover={{ y: -5 }} className="glass-panel liquid-glass p-8 rounded-xl flex flex-col items-center text-center border border-outline-variant/15 hover:border-primary/40 transition-colors">
-            <span className="material-symbols-outlined text-4xl text-primary mb-6">flight_takeoff</span>
-            <h4 className="font-headline text-xl uppercase tracking-widest text-on-surface mb-4">Business Travelers</h4>
-            <p className="font-body text-sm text-on-surface-variant leading-relaxed">Professionals maximizing efficiency, combining tech-enabled carry-ons with premium aesthetics to breeze through terminals without checking bags.</p>
-          </motion.div>
-          <motion.div whileHover={{ y: -5 }} className="glass-panel liquid-glass p-8 rounded-xl flex flex-col items-center text-center border border-outline-variant/15 hover:border-primary/40 transition-colors">
-            <span className="material-symbols-outlined text-4xl text-primary mb-6">family_restroom</span>
-            <h4 className="font-headline text-xl uppercase tracking-widest text-on-surface mb-4">Families</h4>
-            <p className="font-body text-sm text-on-surface-variant leading-relaxed">Frequent flyers needing to fit bulky items for multiple people into fewer suitcases, mitigating extreme overweight bag charges.</p>
-          </motion.div>
-          <motion.div whileHover={{ y: -5 }} className="glass-panel liquid-glass p-8 rounded-xl flex flex-col items-center text-center border border-outline-variant/15 hover:border-primary/40 transition-colors">
-            <span className="material-symbols-outlined text-4xl text-primary mb-6">school</span>
-            <h4 className="font-headline text-xl uppercase tracking-widest text-on-surface mb-4">College Students</h4>
-            <p className="font-body text-sm text-on-surface-variant leading-relaxed">Cross-country movers shifting seasonal wardrobes. Maximized internal capacity without expanding physical footprint.</p>
           </motion.div>
         </div>
       </div>

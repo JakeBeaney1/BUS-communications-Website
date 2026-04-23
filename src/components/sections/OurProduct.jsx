@@ -1,4 +1,56 @@
-import React from 'react';
+import React, { Suspense, useRef } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { useGLTF, OrbitControls, Environment, ContactShadows } from '@react-three/drei';
+
+const LuggageModel = () => {
+  const { scene } = useGLTF('/luggage.glb');
+  const groupRef = useRef();
+
+  useFrame(() => {
+    if (groupRef.current) {
+      groupRef.current.rotation.y += 0.004;
+    }
+  });
+
+  return (
+    <group ref={groupRef}>
+      <primitive object={scene} scale={0.45} position={[0, -0.6, 0]} />
+    </group>
+  );
+};
+
+const LuggageViewer = () => {
+  return (
+    <Canvas
+      camera={{ position: [0, 1.2, 8], fov: 40 }}
+      gl={{ antialias: true, alpha: true }}
+      style={{ background: 'transparent' }}
+    >
+      <ambientLight intensity={0.4} />
+      <directionalLight position={[5, 8, 5]} intensity={1.2} color="#f1c97d" />
+      <directionalLight position={[-5, 2, -5]} intensity={0.3} color="#ffffff" />
+      <pointLight position={[0, 4, 0]} intensity={0.6} color="#c8a96e" />
+      <Suspense fallback={null}>
+        <LuggageModel />
+        <ContactShadows
+          position={[0, -1.3, 0]}
+          opacity={0.4}
+          scale={6}
+          blur={2}
+          far={4}
+          color="#c8a96e"
+        />
+        <Environment preset="city" />
+      </Suspense>
+      <OrbitControls
+        enableZoom={true}
+        enablePan={false}
+        minPolarAngle={Math.PI / 6}
+        maxPolarAngle={Math.PI / 1.8}
+      />
+    </Canvas>
+  );
+};
 
 const OurProduct = () => {
   return (
@@ -47,33 +99,38 @@ const OurProduct = () => {
             </div>
           </div>
 
-          {/* Column 2: What We Built (Spans 5 columns) */}
+          {/* Column 2: Executive Summary + 3D Model (Spans 5 columns) */}
           <div className="md:col-span-5 flex flex-col gap-6">
             <div className="glass-panel liquid-glass rounded-xl p-8 h-full shadow-[0_20px_60px_rgba(241,201,125,0.06)] relative overflow-hidden">
               <h3 className="font-headline text-2xl uppercase tracking-widest text-on-surface mb-6 flex items-center gap-2">
                 <span className="material-symbols-outlined text-primary">architecture</span>
                 EXECUTIVE SUMMARY
               </h3>
-              <p className="font-body text-on-surface-variant leading-relaxed text-sm mb-8">
+              <p className="font-body text-on-surface-variant leading-relaxed text-sm mb-6">
                 Our product takes Samsonite's proven hard-shell technology and adds what has always been missing — vacuum compressible pockets built directly into the case. Pack more. Bring less.
               </p>
               
-              {/* Diagram Placeholder */}
-              <div className="w-full aspect-[4/3] bg-surface-container-lowest rounded-lg border border-outline-variant/20 relative overflow-hidden group">
-                {/* Abstract Technical Lines */}
-                <div className="absolute inset-0 opacity-30 bg-[linear-gradient(rgba(241,201,125,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(241,201,125,0.1)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
-                <div className="absolute inset-0 flex items-center justify-center flex-col">
-                  <span className="material-symbols-outlined text-4xl text-outline-variant mb-3 group-hover:text-primary transition-colors duration-500 font-light">view_in_ar</span>
-                  <span className="font-label text-xs uppercase tracking-widest text-outline-variant">Freeform Structural Analysis</span>
+              {/* 3D Model Viewer */}
+              <div className="w-full aspect-[4/3] bg-surface-container-lowest rounded-lg border border-primary/20 relative overflow-hidden shadow-[0_0_40px_rgba(241,201,125,0.08)]">
+                {/* Grid background */}
+                <div className="absolute inset-0 opacity-20 bg-[linear-gradient(rgba(241,201,125,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(241,201,125,0.15)_1px,transparent_1px)] bg-[size:20px_20px] pointer-events-none z-10"></div>
+                
+                {/* Three.js Canvas */}
+                <div className="absolute inset-0 z-0">
+                  <LuggageViewer />
                 </div>
-                {/* Technical callouts */}
-                <div className="absolute top-4 left-4 flex items-center gap-2">
+
+                {/* Callout overlays */}
+                <div className="absolute top-4 left-4 flex items-center gap-2 z-20 pointer-events-none">
                   <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></div>
                   <span className="font-label text-[10px] text-primary uppercase tracking-widest">Polycarbonate Shell</span>
                 </div>
-                <div className="absolute bottom-4 right-4 flex items-center gap-2">
-                  <span className="font-label text-[10px] text-on-surface-variant uppercase tracking-widest">Stress Distribution</span>
-                  <div className="w-8 h-[1px] bg-on-surface-variant/50"></div>
+                <div className="absolute bottom-4 right-4 flex items-center gap-2 z-20 pointer-events-none">
+                  <span className="font-label text-[10px] text-on-surface-variant uppercase tracking-widest">Drag to Rotate</span>
+                  <span className="material-symbols-outlined text-on-surface-variant/60 text-sm">360</span>
+                </div>
+                <div className="absolute bottom-4 left-4 z-20 pointer-events-none">
+                  <span className="font-label text-[10px] text-primary/60 uppercase tracking-widest">Freeform · 3D Model</span>
                 </div>
               </div>
             </div>
@@ -94,7 +151,6 @@ const OurProduct = () => {
             
             {/* Bottom Card: Statistic */}
             <div className="glass-panel liquid-glass rounded-xl p-6 shadow-[0_20px_60px_rgba(241,201,125,0.06)] flex-grow flex flex-col justify-center items-center text-center relative overflow-hidden bg-gradient-to-br from-surface-container-high to-surface-container-low min-h-[250px]">
-              {/* Subtle radial gradient behind stat */}
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(241,201,125,0.05)_0%,transparent_70%)]"></div>
               <div className="relative z-10 w-full">
                 <div className="font-headline text-7xl font-light text-on-surface mb-2 tracking-tighter">
