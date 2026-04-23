@@ -9,10 +9,10 @@ const Specifications = () => {
 
   const getFilter = (color) => {
     switch(color) {
-      case 'navy': return 'sepia(100%) hue-rotate(185deg) saturate(300%) brightness(0.8) contrast(1.2)';
-      case 'blackout': return 'brightness(0.3) contrast(1.5) grayscale(100%)';
+      case 'navy': return 'sepia(100%) hue-rotate(185deg) saturate(300%) brightness(0.9) contrast(1.1)';
+      case 'blackout': return 'brightness(0.6) contrast(1.3) grayscale(100%)';
       case 'black': 
-      default: return 'brightness(0.65) contrast(1.2) grayscale(100%)';
+      default: return 'brightness(0.75) contrast(1.15) grayscale(80%)';
     }
   };
 
@@ -49,7 +49,7 @@ const Specifications = () => {
                 WebkitMaskImage: 'radial-gradient(ellipse 80% 80% at 50% 50%, black 60%, transparent 100%)',
                 maskImage: 'radial-gradient(ellipse 80% 80% at 50% 50%, black 60%, transparent 100%)'
               }}
-              className="h-full object-contain relative z-0 transition-all duration-700 group-hover:scale-105 opacity-80 mix-blend-screen" 
+              className="h-full object-contain relative z-0 transition-all duration-700 group-hover:scale-105 opacity-90" 
             />
             <div className="absolute top-6 left-6 z-20">
               <span className="font-headline text-[10px] tracking-[0.2em] uppercase text-primary border border-primary/30 px-3 py-1 rounded-full bg-primary/10 backdrop-blur-md">Flagship</span>
@@ -118,7 +118,7 @@ const Specifications = () => {
                 WebkitMaskImage: 'radial-gradient(ellipse 80% 80% at 50% 50%, black 60%, transparent 100%)',
                 maskImage: 'radial-gradient(ellipse 80% 80% at 50% 50%, black 60%, transparent 100%)'
               }}
-              className="h-full object-contain relative z-0 transition-all duration-700 group-hover:scale-105 opacity-80 mix-blend-screen" 
+              className="h-full object-contain relative z-0 transition-all duration-700 group-hover:scale-105 opacity-90" 
             />
             <div className="absolute top-6 left-6 z-20">
               <span className="font-headline text-[10px] tracking-[0.2em] uppercase text-on-surface border border-outline-variant/50 px-3 py-1 rounded-full bg-surface-variant/30 backdrop-blur-md">Agile</span>
