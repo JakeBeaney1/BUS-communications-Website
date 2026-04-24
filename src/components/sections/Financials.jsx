@@ -254,7 +254,7 @@ const Financials = () => {
 
       {/* 5B. BREAKEVEN ANALYSIS */}
       <div className="relative z-10 w-full">
-        <h3 className="font-headline text-2xl font-light tracking-widest text-on-surface uppercase mb-8">Breakeven Analysis (Incremental)</h3>
+        <h3 className="font-headline text-2xl font-light tracking-widest text-on-surface uppercase mb-8">Breakeven Analysis</h3>
         <div className="bg-surface-container-low rounded-xl p-8 border border-outline-variant/15">
           <div className="w-full h-[400px]">
             <ResponsiveContainer width="100%" height="100%">
