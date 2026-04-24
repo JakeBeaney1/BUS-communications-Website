@@ -76,6 +76,9 @@ const Hero = () => {
         <h1 className="font-headline font-bold text-[12vw] leading-none tracking-[0.1em] text-on-surface uppercase drop-shadow-[0_4px_24px_rgba(0,0,0,0.8)] opacity-90 mix-blend-screen pointer-events-none">
           Freeform
         </h1>
+        <span className="block font-headline font-bold text-[6vw] leading-none tracking-[0.3em] uppercase pointer-events-none opacity-90 mix-blend-screen drop-shadow-[0_4px_24px_rgba(0,0,0,0.8)] text-gradient">
+          Compress
+        </span>
         <p className="font-headline text-xl md:text-3xl tracking-[0.2em] uppercase mt-8 text-gradient drop-shadow-[0_2px_12px_rgba(241,201,125,0.2)]">
           More Space. More Freedom.
         </p>
