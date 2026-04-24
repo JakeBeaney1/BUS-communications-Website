@@ -219,8 +219,8 @@ const Financials = () => {
             <p className="font-body text-xs text-on-surface-variant opacity-80 mb-8">31.1" × 20.9" × 13.8" | 9.6 lbs</p>
             <div className="flex items-center justify-between mt-auto border-t border-outline-variant/20 pt-6">
               <div>
-                <p className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant mb-1">MSRP Range</p>
-                <div className="font-headline text-2xl text-on-surface">$316.49<span className="text-sm text-on-surface-variant mx-1">–</span>$319.99</div>
+                <p className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant mb-1">MSRP</p>
+                <div className="font-headline text-2xl text-on-surface">$319.99</div>
               </div>
               <CircularProgress percentage={65} />
             </div>
@@ -231,8 +231,8 @@ const Financials = () => {
             <p className="font-body text-xs text-on-surface-variant opacity-80 mb-8">23" × 15" × 10" | 6.5 lbs</p>
             <div className="flex items-center justify-between mt-auto border-t border-outline-variant/20 pt-6">
               <div>
-                <p className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant mb-1">MSRP Range</p>
-                <div className="font-headline text-2xl text-on-surface">$238.74<span className="text-sm text-on-surface-variant mx-1">–</span>$239.99</div>
+                <p className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant mb-1">MSRP</p>
+                <div className="font-headline text-2xl text-on-surface">$239.99</div>
               </div>
               <CircularProgress percentage={60} />
             </div>
@@ -243,8 +243,8 @@ const Financials = () => {
             <p className="font-body text-xs text-on-surface-variant opacity-80 mb-8">Includes both sizes</p>
             <div className="flex items-center justify-between mt-auto border-t border-outline-variant/20 pt-6">
               <div>
-                <p className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant mb-1">MSRP Range</p>
-                <div className="font-headline text-2xl text-on-surface">$439.74<span className="text-sm text-on-surface-variant mx-1">–</span>$439.99</div>
+                <p className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant mb-1">MSRP</p>
+                <div className="font-headline text-2xl text-on-surface">$439.99</div>
               </div>
               <CircularProgress percentage={55} />
             </div>
@@ -255,8 +255,8 @@ const Financials = () => {
       {/* 5B. BREAKEVEN ANALYSIS */}
       <div className="relative z-10 w-full">
         <h3 className="font-headline text-2xl font-light tracking-widest text-on-surface uppercase mb-8">Breakeven Analysis</h3>
-        <div className="bg-surface-container-low rounded-xl p-8 border border-outline-variant/15 flex flex-col lg:flex-row gap-12">
-          <div className="lg:w-1/2 h-[400px]">
+        <div className="bg-surface-container-low rounded-xl p-8 border border-outline-variant/15">
+          <div className="w-full h-[400px]">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={breakevenChartData} margin={{ top: 40, right: 0, left: -20, bottom: 20 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
@@ -268,21 +268,6 @@ const Financials = () => {
                 </Bar>
               </BarChart>
             </ResponsiveContainer>
-          </div>
-          <div className="lg:w-1/2 flex items-center">
-            <BloombergTable 
-              headers={[
-                { label: "Product", align: "text-left" },
-                { label: "Break-Even Units", align: "text-right" },
-                { label: "Price Range", align: "text-right" },
-                { label: "Gross Margin", align: "text-right" }
-              ]}
-              rows={[
-                { cells: ["Large Check-In", "32,259", "$316.49 - $319.99", "65%"] },
-                { cells: ["Carry-On", "43,012", "$238.74 - $239.99", "60%"] },
-                { cells: ["Bundle", "25,807", "$439.74 - $439.99", "55%"] },
-              ]}
-            />
           </div>
         </div>
       </div>
@@ -343,8 +328,7 @@ const Financials = () => {
           </div>
         </div>
         
-        <div className="bg-surface-container-low rounded-xl p-8 border border-outline-variant/15 flex flex-col gap-12">
-          {/* Chart */}
+        <div className="bg-surface-container-low rounded-xl p-8 border border-outline-variant/15">
           <div className="w-full h-[400px]">
              <ResponsiveContainer width="100%" height="100%">
               <BarChart data={proFormaData[proFormaYear]} margin={{ top: 20, right: 0, left: 10, bottom: 20 }}>
@@ -359,30 +343,6 @@ const Financials = () => {
               </BarChart>
             </ResponsiveContainer>
           </div>
-
-          {/* Table */}
-          <BloombergTable 
-            headers={[
-               { label: "Pro Forma Scenario Matrix", colSpan: 1 },
-               { label: "Year 1 Model", colSpan: 3, align: "text-center" },
-               { label: "Year 2 Model", colSpan: 3, align: "text-center" },
-            ]}
-            subHeaders={[
-               { label: "Metric", align: "text-left" },
-               { label: "Best Cast" }, { label: "Most Likely" }, { label: "Worst Case" },
-               { label: "Best Cast" }, { label: "Most Likely" }, { label: "Worst Case" }
-            ]}
-            rows={[
-               { cells: ["Revenue", "$31,213,900", "$21,336,750", "$14,324,500", "$40,578,070", "$27,737,775", "$18,621,850"] },
-               { cells: ["COGS", "$12,485,560", "$8,534,700", "$5,729,800", "$16,231,228", "$11,095,110", "$7,448,740"] },
-               { cells: ["Gross Profit", "$18,728,340", "$12,802,050", "$8,594,700", "$24,346,842", "$16,642,665", "$11,173,110"], isHighlight: true },
-               { cells: ["Marketing", "$1,872,834", "$1,280,205", "$859,470", "$2,434,684", "$1,664,267", "$1,117,311"] },
-               { cells: ["R&D", "$600,000", "$600,000", "$600,000", "$100,000", "$100,000", "$100,000"] },
-               { cells: ["SG&A", "$400,000", "$400,000", "$400,000", "$400,000", "$400,000", "$400,000"] },
-               { cells: ["Total OpEx", "$2,872,834", "$2,280,205", "$1,859,470", "$2,934,684", "$2,164,267", "$1,617,311"] },
-               { cells: ["Operating Income", "$15,855,506", "$10,521,845", "$6,735,230", "$21,412,158", "$14,478,399", "$9,555,799"], isHighlight: true }
-            ]}
-          />
         </div>
       </div>
 
@@ -403,8 +363,7 @@ const Financials = () => {
           </div>
         </div>
 
-        <div className="bg-surface-container-low rounded-xl p-8 border border-outline-variant/15 flex flex-col gap-12">
-          {/* Dual Charts Stacked */}
+        <div className="bg-surface-container-low rounded-xl p-8 border border-outline-variant/15">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div className="h-[300px] w-full border border-outline-variant/10 rounded-lg p-4 pb-8 bg-[#111]">
               <h4 className="font-label text-xs uppercase tracking-widest text-on-surface-variant mb-4 text-center">Unit Volume Projection</h4>
@@ -432,22 +391,6 @@ const Financials = () => {
               </ResponsiveContainer>
             </div>
           </div>
-
-          <BloombergTable 
-             headers={[ { label: "Forecasted Sales Scenarios (Year 1)", colSpan: 4 } ]}
-             subHeaders={[
-               { label: "Product", align: "text-left" },
-               { label: "Best Case" }, { label: "Most Likely" }, { label: "Worst Case" }
-             ]}
-             rows={[
-               { cells: ["Carry-On Units", "160,000", "140,000", "125,000"] },
-               { cells: ["Large Check-In Units", "150,000", "135,000", "120,000"] },
-               { cells: ["Bundle Units", "140,000", "130,000", "115,000"] },
-               { cells: ["Carry-On Revenue", "$38,198,400", "$33,423,600", "$29,842,500"], isHighlight: true },
-               { cells: ["Large Check-In Revenue", "$47,473,500", "$42,726,150", "$37,978,800"], isHighlight: true },
-               { cells: ["Bundle Revenue", "$61,563,600", "$57,166,200", "$50,570,100"], isHighlight: true }
-             ]}
-          />
         </div>
       </div>
     </section>
