@@ -161,7 +161,7 @@ const MarketCompetition = () => {
             >
                <div className="absolute inset-0 bg-gradient-to-br from-error/5 to-transparent"></div>
                <div className="relative z-10">
-                  <div className="font-headline text-5xl md:text-6xl font-bold text-error mb-4 tracking-tight drop-shadow-[0_0_15px_rgba(244,67,54,0.3)]">
+                  <div className="font-headline text-4xl md:text-5xl font-bold text-error mb-4 tracking-tight drop-shadow-[0_0_15px_rgba(244,67,54,0.3)]">
                     $7.27B
                   </div>
                   <div className="font-label text-sm uppercase tracking-widest text-on-surface-variant leading-relaxed">

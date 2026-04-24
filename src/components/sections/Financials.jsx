@@ -90,7 +90,7 @@ const CircularProgress = ({ percentage }) => {
   const c = Math.PI * (r * 2);
   const pct = ((100 - percentage) / 100) * c;
   return (
-    <div className="relative w-20 h-20 flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(241,201,125,0.1)] rounded-full bg-surface-container-highest">
+    <div className="relative flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(241,201,125,0.1)] rounded-full bg-surface-container-highest" style={{ width: '80px', height: '80px' }}>
       <svg className="absolute inset-0 w-full h-full transform -rotate-90">
         <circle cx="40" cy="40" r="30" stroke="rgba(241,201,125,0.1)" strokeWidth="4" fill="none" />
         <motion.circle 

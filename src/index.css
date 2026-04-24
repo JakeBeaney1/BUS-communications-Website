@@ -18,7 +18,7 @@
   }
   html {
     color-scheme: dark;
-    font-size: 24px;
+    font-size: 20px;
   }
   ::selection {
     @apply bg-primary/30 text-primary;
