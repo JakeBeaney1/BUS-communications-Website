@@ -11,8 +11,14 @@
     @apply bg-surface text-on-surface font-body antialiased min-h-screen flex flex-col;
     overflow-x: hidden;
   }
+  img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
   html {
     color-scheme: dark;
+    font-size: 24px;
   }
   ::selection {
     @apply bg-primary/30 text-primary;

@@ -17,7 +17,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="fixed top-0 w-full z-50 bg-surface/60 backdrop-blur-2xl bg-gradient-to-b from-surface-dim/80 to-transparent shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
+    <nav className="fixed top-0 w-full z-50 bg-surface/60 backdrop-blur-2xl bg-gradient-to-b from-surface-dim/80 to-transparent shadow-[0_8px_32px_rgba(0,0,0,0.5)]" style={{ fontSize: '16px' }}>
       <div className="flex justify-between items-center px-12 py-6 w-full max-w-[1600px] mx-auto">
         <div 
             className="text-xl font-bold tracking-[0.3em] text-primary uppercase font-headline cursor-pointer"
