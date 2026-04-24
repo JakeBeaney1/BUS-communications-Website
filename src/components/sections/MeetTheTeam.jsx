@@ -90,14 +90,8 @@ const MeetTheTeam = () => {
 
             {/* Content */}
             <div className="flex-grow flex flex-col w-full">
-              <h3 className="font-headline text-xl sm:text-2xl font-medium text-on-surface mb-2">{member.name}</h3>
-              <p className="font-label text-[10px] uppercase tracking-widest text-primary mb-6 h-8 flex items-center justify-center leading-tight">{member.role}</p>
-              
-              <div className="h-[1px] w-8 sm:w-12 bg-outline-variant/30 mx-auto mb-6 group-hover:w-full group-hover:bg-primary/30 transition-all duration-700"></div>
-              
-              <p className="font-body text-xs sm:text-sm text-on-surface-variant leading-relaxed opacity-80 group-hover:opacity-100 transition-opacity">
-                {member.description}
-              </p>
+              <h3 className="font-headline text-xl sm:text-2xl font-medium text-on-surface mb-4">{member.name}</h3>
+              <div className="h-[1px] w-8 sm:w-12 bg-outline-variant/30 mx-auto group-hover:w-full group-hover:bg-primary/30 transition-all duration-700"></div>
             </div>
           </motion.div>
         ))}
