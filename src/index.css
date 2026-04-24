@@ -23,6 +23,27 @@
   ::selection {
     @apply bg-primary/30 text-primary;
   }
+
+  /* Fullscreen mode — ensure everything fills the viewport */
+  html:fullscreen,
+  html:-webkit-full-screen {
+    width: 100vw !important;
+    height: 100vh !important;
+  }
+
+  :fullscreen body,
+  :-webkit-full-screen body {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100vh !important;
+    overflow-y: auto !important;
+  }
+
+  :fullscreen #root,
+  :-webkit-full-screen #root {
+    width: 100% !important;
+    min-height: 100vh !important;
+  }
 }
 
 @layer components {
