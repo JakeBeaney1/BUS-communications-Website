@@ -101,72 +101,136 @@ const Strategies = () => {
       {/* Marketing Approach Section */}
       <div className="w-full py-24 bg-surface-container-low px-6 md:px-12 relative overflow-hidden">
         <div className="max-w-[1600px] mx-auto z-10 relative">
-          <div className="flex items-center gap-4 mb-16">
+          <div className="flex items-center gap-4 mb-6">
             <div className="w-12 h-[1px] bg-primary"></div>
             <h2 className="font-headline text-3xl font-semibold tracking-widest uppercase text-on-surface">Marketing Approach</h2>
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
-            {/* Decorator Line */}
-            <div className="absolute top-[40%] left-0 w-full h-[1px] bg-outline-variant/30 hidden md:block z-0"></div>
-            
-            {/* Pillar 1 */}
-            <div className="glass-panel liquid-glass rounded-lg p-8 relative z-10 flex flex-col gap-6 min-h-[300px]">
+          <p className="font-body text-on-surface-variant text-base leading-relaxed mb-16 max-w-3xl">
+            A multi-channel strategy combining data-driven digital advertising, elite influencer partnerships, immersive online experiences, and hands-on retail activations.
+          </p>
+
+          {/* PILLAR 1 — Digital Campaign */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            <div className="glass-panel liquid-glass rounded-xl p-8 relative z-10 flex flex-col gap-6">
               <div className="flex justify-between items-start">
                 <span className="font-headline text-5xl font-bold text-surface-container-lowest drop-shadow-[-1px_-1px_0_#f1c97d]">01</span>
                 <span className="material-symbols-outlined text-primary text-3xl">language</span>
               </div>
               <div>
                 <h3 className="font-headline text-xl font-semibold uppercase tracking-wider mb-3 text-on-surface">Digital Campaign</h3>
-                <p className="font-body text-sm text-on-surface-variant leading-relaxed">
-                  Re-engage Bench Media + Tourist Tracka data partnership for programmatic video ads across digital channels.
+                <p className="font-body text-sm text-on-surface-variant leading-relaxed mb-4">
+                  Re-hire <span className="text-primary font-semibold">Bench Media</span> (advertising agency) who partnered with <span className="text-primary font-semibold">Tourist Tracka</span> (data vendor) to develop a data-driven digital campaign targeting frequent travelers.
                 </p>
+                <a href="https://benchmedia.com/case-study/samsonite/" target="_blank" rel="noopener noreferrer" className="font-label text-[10px] uppercase tracking-widest text-primary/70 hover:text-primary transition-colors underline underline-offset-4">
+                  Source: Bench Media × Samsonite Case Study →
+                </a>
               </div>
-              <ul className="mt-4 space-y-3 font-label text-sm md:text-base text-on-surface-variant/90">
-                <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 bg-primary rounded-full"></div> Bench Media Analytics</li>
-                <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 bg-primary rounded-full"></div> Tourist Tracka Integration</li>
-                <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 bg-primary rounded-full"></div> Programmatic Delivery</li>
+              <ul className="mt-2 space-y-3 font-label text-sm text-on-surface-variant/90">
+                <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 bg-primary rounded-full"></div> Bench Media programmatic analytics</li>
+                <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 bg-primary rounded-full"></div> Tourist Tracka travel-intent data integration</li>
+                <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 bg-primary rounded-full"></div> Visual demo ads showcasing compression technology</li>
+                <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 bg-primary rounded-full"></div> GIF/video content showing before vs. after compression</li>
               </ul>
             </div>
-            
-            {/* Pillar 2 */}
-            <div className="glass-panel liquid-glass rounded-lg p-8 relative z-10 flex flex-col gap-6 transform md:translate-y-12 min-h-[300px]">
+            <div className="rounded-xl overflow-hidden border border-outline-variant/15 shadow-[0_10px_40px_rgba(0,0,0,0.6)]">
+              <img src="/images/digital_campaign.png" alt="Digital Campaign Dashboard" className="w-full h-full object-cover" />
+            </div>
+          </div>
+
+          {/* PILLAR 2 — Influencer PR Boxes */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            <div className="rounded-xl overflow-hidden border border-outline-variant/15 shadow-[0_10px_40px_rgba(0,0,0,0.6)] order-2 lg:order-1">
+              <img src="/images/influencer_pr_box.png" alt="Influencer PR Box" className="w-full h-full object-cover" />
+            </div>
+            <div className="glass-panel liquid-glass rounded-xl p-8 relative z-10 flex flex-col gap-5 order-1 lg:order-2">
               <div className="flex justify-between items-start">
                 <span className="font-headline text-5xl font-bold text-surface-container-lowest drop-shadow-[-1px_-1px_0_#f1c97d]">02</span>
                 <span className="material-symbols-outlined text-primary text-3xl">redeem</span>
               </div>
               <div>
                 <h3 className="font-headline text-xl font-semibold uppercase tracking-wider mb-3 text-on-surface">Influencer PR Boxes</h3>
-                <p className="font-body text-[12px] text-on-surface-variant leading-relaxed mb-4">
-                  All PR box recipients are invited to the Samsonite AirMax Launch Party — an all-expenses-covered long weekend in Nice, France, including tickets to the AirMax Fashion Show.
+                <p className="font-body text-sm text-on-surface-variant leading-relaxed">
+                  Highly selective PR boxes sent to influencers with strong international presence. Each recipient receives an exclusive invitation to the <span className="text-primary font-semibold">Samsonite AirMax Launch Party</span> — an all-expenses-covered long-weekend getaway to <span className="text-primary font-semibold">Nice, France</span>, including tickets to the AirMax Fashion Show.
                 </p>
               </div>
-              <ul className="space-y-3 font-label text-xs md:text-sm text-on-surface-variant/90 leading-tight flex-grow mt-2">
-                <li className="flex items-start gap-3"><div className="w-1.5 h-1.5 mt-1.5 bg-primary rounded-full shrink-0"></div> @jeraldinejeronimojorjette (3.5M IG / 3.7M TT)</li>
-                <li className="flex items-start gap-3"><div className="w-1.5 h-1.5 mt-1.5 bg-primary rounded-full shrink-0"></div> @thebucketlistfamily (3.7M IG / 0.5M TT)</li>
-                <li className="flex items-start gap-3"><div className="w-1.5 h-1.5 mt-1.5 bg-primary rounded-full shrink-0"></div> @Kara and Nate (1.2M IG / 4.43M YT)</li>
-                <li className="flex items-start gap-3"><div className="w-1.5 h-1.5 mt-1.5 bg-primary rounded-full shrink-0"></div> @hjevelyn & Ha Sisters (2.3M IG / 4.96M YT)</li>
-                <li className="flex items-start gap-3"><div className="w-1.5 h-1.5 mt-1.5 bg-primary rounded-full shrink-0"></div> @caseyneistat (2.8M IG / 12.7M YT)</li>
-                <li className="flex items-start gap-3"><div className="w-1.5 h-1.5 mt-1.5 bg-primary rounded-full shrink-0"></div> @Drew Binsky (1.4M IG / 6.86M YT)</li>
-              </ul>
+              <div className="border-t border-outline-variant/20 pt-4">
+                <h4 className="font-label text-[10px] uppercase tracking-widest text-primary mb-3 font-bold">Selected Influencer Partners</h4>
+                <ul className="space-y-2.5 font-label text-xs text-on-surface-variant/90 leading-tight">
+                  <li className="flex items-start gap-2">
+                    <div className="w-1.5 h-1.5 mt-1.5 bg-primary rounded-full shrink-0"></div>
+                    <div><span className="text-on-surface font-medium">@jeraldinejeronimojorjette</span> — Family life & travel <span className="text-primary/70">(3.5M IG / 3.7M TikTok)</span></div>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <div className="w-1.5 h-1.5 mt-1.5 bg-primary rounded-full shrink-0"></div>
+                    <div><span className="text-on-surface font-medium">@thebucketlistfamily</span> — Family travel adventures <span className="text-primary/70">(3.7M IG / 0.5M TikTok)</span></div>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <div className="w-1.5 h-1.5 mt-1.5 bg-primary rounded-full shrink-0"></div>
+                    <div><span className="text-on-surface font-medium">@Kara and Nate</span> — Couple travel content <span className="text-primary/70">(1.2M IG / 0.3M TikTok / 4.43M YT)</span></div>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <div className="w-1.5 h-1.5 mt-1.5 bg-primary rounded-full shrink-0"></div>
+                    <div><span className="text-on-surface font-medium">@hjevelyn & the Ha Sisters</span> — Lifestyle, GenZ, Asian American, Fashion <span className="text-primary/70">(2.3M IG / 4.4M TikTok / 4.96M YT)</span></div>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <div className="w-1.5 h-1.5 mt-1.5 bg-primary rounded-full shrink-0"></div>
+                    <div><span className="text-on-surface font-medium">@caseyneistat</span> — Product review content <span className="text-primary/70">(2.8M IG / 12.7M YT)</span></div>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <div className="w-1.5 h-1.5 mt-1.5 bg-primary rounded-full shrink-0"></div>
+                    <div><span className="text-on-surface font-medium">@Drew Binsky</span> — Mass-market & international travel, extreme durability <span className="text-primary/70">(1.4M IG / 0.8M TikTok / 6.86M YT)</span></div>
+                  </li>
+                </ul>
+              </div>
             </div>
-            
-            {/* Pillar 3 */}
-            <div className="glass-panel liquid-glass rounded-lg p-8 relative z-10 flex flex-col gap-6 min-h-[300px]">
+          </div>
+
+          {/* PILLAR 3 — Online Strategy */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            <div className="glass-panel liquid-glass rounded-xl p-8 relative z-10 flex flex-col gap-6">
               <div className="flex justify-between items-start">
                 <span className="font-headline text-5xl font-bold text-surface-container-lowest drop-shadow-[-1px_-1px_0_#f1c97d]">03</span>
+                <span className="material-symbols-outlined text-primary text-3xl">computer</span>
+              </div>
+              <div>
+                <h3 className="font-headline text-xl font-semibold uppercase tracking-wider mb-3 text-on-surface">Online Experience</h3>
+                <p className="font-body text-sm text-on-surface-variant leading-relaxed">
+                  A dedicated product page with interactive compression demos that let customers see and feel the technology before they buy.
+                </p>
+              </div>
+              <ul className="mt-2 space-y-3 font-label text-sm text-on-surface-variant/90">
+                <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 bg-primary rounded-full"></div> Product page with interactive compression demo</li>
+                <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 bg-primary rounded-full"></div> GIF/video showing real-time compression</li>
+                <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 bg-primary rounded-full"></div> Before vs. after visual comparisons</li>
+                <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 bg-primary rounded-full"></div> Seamless DTC purchase flow via Samsonite.com</li>
+              </ul>
+            </div>
+            <div className="rounded-xl overflow-hidden border border-outline-variant/15 shadow-[0_10px_40px_rgba(0,0,0,0.6)]">
+              <img src="/images/online_demo.png" alt="Online Interactive Demo" className="w-full h-full object-cover" />
+            </div>
+          </div>
+
+          {/* PILLAR 4 — Retail Activation */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="rounded-xl overflow-hidden border border-outline-variant/15 shadow-[0_10px_40px_rgba(0,0,0,0.6)] order-2 lg:order-1">
+              <img src="/images/retail_activation.png" alt="Retail Activation Display" className="w-full h-full object-cover" />
+            </div>
+            <div className="glass-panel liquid-glass rounded-xl p-8 relative z-10 flex flex-col gap-6 order-1 lg:order-2">
+              <div className="flex justify-between items-start">
+                <span className="font-headline text-5xl font-bold text-surface-container-lowest drop-shadow-[-1px_-1px_0_#f1c97d]">04</span>
                 <span className="material-symbols-outlined text-primary text-3xl">storefront</span>
               </div>
               <div>
                 <h3 className="font-headline text-xl font-semibold uppercase tracking-wider mb-3 text-on-surface">Retail Activation</h3>
                 <p className="font-body text-sm text-on-surface-variant leading-relaxed">
-                  Immersive physical installations in flagship locations. Merging digital configuration with tactile material exploration.
+                  Immersive physical installations in flagship retail locations that let customers experience vacuum compression technology firsthand.
                 </p>
               </div>
-              <ul className="mt-4 space-y-3 font-label text-sm md:text-base text-on-surface-variant/90">
+              <ul className="mt-2 space-y-3 font-label text-sm text-on-surface-variant/90">
+                <li className="flex items-start gap-3"><div className="w-1.5 h-1.5 mt-1.5 bg-primary rounded-full shrink-0"></div> Display suitcase showing compressed vs. uncompressed contents</li>
                 <li className="flex items-start gap-3"><div className="w-1.5 h-1.5 mt-1.5 bg-primary rounded-full shrink-0"></div> In-store live compression demos</li>
-                <li className="flex items-start gap-3"><div className="w-1.5 h-1.5 mt-1.5 bg-primary rounded-full shrink-0"></div> Interactive displays (press → compress)</li>
-                <li className="flex items-start gap-3"><div className="w-1.5 h-1.5 mt-1.5 bg-primary rounded-full shrink-0"></div> Side-by-side compression visualizers</li>
+                <li className="flex items-start gap-3"><div className="w-1.5 h-1.5 mt-1.5 bg-primary rounded-full shrink-0"></div> Interactive displays (press button → see compression happen)</li>
+                <li className="flex items-start gap-3"><div className="w-1.5 h-1.5 mt-1.5 bg-primary rounded-full shrink-0"></div> Side-by-side comparison visualizers</li>
               </ul>
             </div>
           </div>
