@@ -43,7 +43,10 @@ const exitFullscreen = () => {
 };
 
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'F11') {
+  const isF11 = e.key === 'F11';
+  const isCmdShiftF = (e.metaKey || e.ctrlKey) && e.shiftKey && e.key.toLowerCase() === 'f';
+
+  if (isF11 || isCmdShiftF) {
     e.preventDefault();
     e.stopPropagation();
     if (!getFullscreenElement()) {
