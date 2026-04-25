@@ -135,32 +135,32 @@ const bomData = [
 
 const proFormaData = {
   year1: [
-    { scenario: 'Worst Case', Revenue: 14324500, GrossProfit: 8594700, OperatingIncome: 6735230 },
-    { scenario: 'Most Likely', Revenue: 21336750, GrossProfit: 12802050, OperatingIncome: 10521845 },
-    { scenario: 'Best Case', Revenue: 31213900, GrossProfit: 18728340, OperatingIncome: 15855506 }
+    { scenario: 'Worst Case', Revenue: 94849400, GrossProfit: 56909640, OperatingIncome: 50218676 },
+    { scenario: 'Most Likely', Revenue: 105376550, GrossProfit: 63225930, OperatingIncome: 55903337 },
+    { scenario: 'Best Case', Revenue: 119296100, GrossProfit: 71577660, OperatingIncome: 63419894 }
   ],
   year2: [
-    { scenario: 'Worst Case', Revenue: 18621850, GrossProfit: 11173110, OperatingIncome: 9555799 },
-    { scenario: 'Most Likely', Revenue: 27737775, GrossProfit: 16642665, OperatingIncome: 14478399 },
-    { scenario: 'Best Case', Revenue: 40578070, GrossProfit: 24346842, OperatingIncome: 21412158 }
+    { scenario: 'Worst Case', Revenue: 123304220, GrossProfit: 73982532, OperatingIncome: 66084279 },
+    { scenario: 'Most Likely', Revenue: 136989515, GrossProfit: 82193709, OperatingIncome: 73474338 },
+    { scenario: 'Best Case', Revenue: 155084930, GrossProfit: 93050958, OperatingIncome: 83245862 }
   ]
 };
 
 const salesForecastData = {
   Best: [
-    { product: 'Carry-On', units: 160000, revenue: 38198400 },
-    { product: 'Large Check-In', units: 150000, revenue: 47473500 },
-    { product: 'Bundle', units: 140000, revenue: 61563600 }
+    { product: 'Carry-On', units: 180000, revenue: 42973200 },
+    { product: 'Large Check-In', units: 130000, revenue: 41143700 },
+    { product: 'Bundle', units: 80000, revenue: 35179200 }
   ],
   Likely: [
-    { product: 'Carry-On', units: 140000, revenue: 33423600 },
-    { product: 'Large Check-In', units: 135000, revenue: 42726150 },
-    { product: 'Bundle', units: 130000, revenue: 57166200 }
+    { product: 'Carry-On', units: 160000, revenue: 38198400 },
+    { product: 'Large Check-In', units: 115000, revenue: 36396350 },
+    { product: 'Bundle', units: 70000, revenue: 30781800 }
   ],
   Worst: [
-    { product: 'Carry-On', units: 125000, revenue: 29842500 },
-    { product: 'Large Check-In', units: 120000, revenue: 37978800 },
-    { product: 'Bundle', units: 115000, revenue: 50570100 }
+    { product: 'Carry-On', units: 145000, revenue: 34617300 },
+    { product: 'Large Check-In', units: 100000, revenue: 31649000 },
+    { product: 'Bundle', units: 65000, revenue: 28583100 }
   ]
 };
 
@@ -252,7 +252,93 @@ const Financials = () => {
         </div>
       </div>
 
-      {/* 5B. BREAKEVEN ANALYSIS */}
+      {/* 5B. FORECASTED SALES */}
+      <div className="relative z-10 w-full">
+        <div className="flex justify-between items-end mb-8 flex-wrap gap-4">
+          <h3 className="font-headline text-2xl font-light tracking-widest text-on-surface uppercase">Forecasted Sales (Y1)</h3>
+          <div className="flex bg-[#111] border border-primary/30 rounded-lg p-1">
+            {['Worst', 'Likely', 'Best'].map((scen) => (
+              <button 
+                key={scen}
+                onClick={() => setForecastScenario(scen)}
+                className={`px-6 py-2 font-label text-xs uppercase tracking-widest rounded transition-colors ${forecastScenario === scen ? 'bg-primary text-black font-bold' : 'text-on-surface-variant hover:text-primary'}`}
+              >
+                {scen} Case
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="bg-surface-container-low rounded-xl p-8 border border-outline-variant/15">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="h-[300px] w-full border border-outline-variant/10 rounded-lg p-4 pb-8 bg-[#111]">
+              <h4 className="font-label text-xs uppercase tracking-widest text-on-surface-variant mb-4 text-center">Unit Volume Projection</h4>
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={salesForecastData[forecastScenario]} margin={{ top: 10, right: 0, left: 10, bottom: 20 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
+                  <XAxis dataKey="product" tick={{fill: '#888', fontSize: 12}} axisLine={false} tickLine={false} dy={5} />
+                  <YAxis tick={{fill: '#888', fontSize: 12}} axisLine={false} tickLine={false} tickFormatter={(val) => `${val/1000}k`} domain={[0, 200000]} />
+                  <Tooltip content={<CustomTooltip />} cursor={{fill: 'rgba(255,255,255,0.05)'}} />
+                  <Bar dataKey="units" name="Units" fill="#7a8c99" radius={[2, 2, 0, 0]} animationDuration={800} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+            
+            <div className="h-[300px] w-full border border-outline-variant/10 rounded-lg p-4 pb-8 bg-[#111]">
+              <h4 className="font-label text-xs uppercase tracking-widest text-on-surface-variant mb-4 text-center">Revenue Projection</h4>
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={salesForecastData[forecastScenario]} margin={{ top: 10, right: 0, left: 20, bottom: 20 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
+                  <XAxis dataKey="product" tick={{fill: '#888', fontSize: 12}} axisLine={false} tickLine={false} dy={5} />
+                  <YAxis tick={{fill: '#888', fontSize: 12}} axisLine={false} tickLine={false} tickFormatter={(val) => `$${val/1000000}M`} domain={[0, 50000000]} />
+                  <Tooltip content={<CustomTooltip />} cursor={{fill: 'rgba(255,255,255,0.05)'}} />
+                  <Bar dataKey="revenue" name="Revenue" fill="#c8a96e" radius={[2, 2, 0, 0]} animationDuration={800} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 5C. PRO FORMA STATEMENT */}
+      <div className="relative z-10 w-full">
+        <div className="flex justify-between items-end mb-8 flex-wrap gap-4">
+          <h3 className="font-headline text-2xl font-light tracking-widest text-on-surface uppercase">Pro Forma Statement</h3>
+          <div className="flex bg-[#111] border border-primary/30 rounded-lg p-1">
+            <button 
+              onClick={() => setProFormaYear('year1')}
+              className={`px-6 py-2 font-label text-xs uppercase tracking-widest rounded transition-colors ${proFormaYear === 'year1' ? 'bg-primary text-black font-bold' : 'text-on-surface-variant hover:text-primary'}`}
+            >
+              Year 1
+            </button>
+            <button 
+              onClick={() => setProFormaYear('year2')}
+              className={`px-6 py-2 font-label text-xs uppercase tracking-widest rounded transition-colors ${proFormaYear === 'year2' ? 'bg-primary text-black font-bold' : 'text-on-surface-variant hover:text-primary'}`}
+            >
+              Year 2
+            </button>
+          </div>
+        </div>
+        
+        <div className="bg-surface-container-low rounded-xl p-8 border border-outline-variant/15">
+          <div className="w-full h-[400px]">
+             <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={proFormaData[proFormaYear]} margin={{ top: 20, right: 0, left: 10, bottom: 20 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
+                <XAxis dataKey="scenario" tick={{fill: '#888', fontSize: 12, fontFamily: 'Inter'}} axisLine={false} tickLine={false} dy={10} />
+                <YAxis tick={{fill: '#888', fontSize: 12, fontFamily: 'Inter'}} axisLine={false} tickLine={false} tickFormatter={(val) => `$${val/1000000}M`} domain={[0, 160000000]} />
+                <Tooltip content={<CustomTooltip />} cursor={{fill: 'rgba(241,201,125,0.05)'}} />
+                <Legend iconType="circle" wrapperStyle={{ paddingTop: '20px', fontSize: '12px', fontFamily: 'Inter' }} />
+                <Bar dataKey="Revenue" fill="#c8a96e" radius={[2, 2, 0, 0]} animationDuration={1000} />
+                <Bar dataKey="GrossProfit" fill="#a08a5d" radius={[2, 2, 0, 0]} animationDuration={1000} />
+                <Bar dataKey="OperatingIncome" fill="#39ff14" radius={[2, 2, 0, 0]} animationDuration={1000} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+      </div>
+
+      {/* 5D. BREAKEVEN ANALYSIS */}
       <div className="relative z-10 w-full">
         <h3 className="font-headline text-2xl font-light tracking-widest text-on-surface uppercase mb-8">Breakeven Analysis</h3>
         <div className="bg-surface-container-low rounded-xl p-8 border border-outline-variant/15">
@@ -272,8 +358,8 @@ const Financials = () => {
         </div>
       </div>
 
-      {/* 5C. BILL OF MATERIALS */}
-      <div className="relative z-10 w-full">
+      {/* 5E. BILL OF MATERIALS */}
+      <div className="relative z-10 w-full mb-32">
         <h3 className="font-headline text-2xl font-light tracking-widest text-on-surface uppercase mb-8">Bill of Materials</h3>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {bomData.map((item, idx) => (
@@ -305,92 +391,6 @@ const Financials = () => {
               </div>
             </div>
           ))}
-        </div>
-      </div>
-
-      {/* 5D. PRO FORMA STATEMENT */}
-      <div className="relative z-10 w-full">
-        <div className="flex justify-between items-end mb-8 flex-wrap gap-4">
-          <h3 className="font-headline text-2xl font-light tracking-widest text-on-surface uppercase">Pro Forma Statement</h3>
-          <div className="flex bg-[#111] border border-primary/30 rounded-lg p-1">
-            <button 
-              onClick={() => setProFormaYear('year1')}
-              className={`px-6 py-2 font-label text-xs uppercase tracking-widest rounded transition-colors ${proFormaYear === 'year1' ? 'bg-primary text-black font-bold' : 'text-on-surface-variant hover:text-primary'}`}
-            >
-              Year 1
-            </button>
-            <button 
-              onClick={() => setProFormaYear('year2')}
-              className={`px-6 py-2 font-label text-xs uppercase tracking-widest rounded transition-colors ${proFormaYear === 'year2' ? 'bg-primary text-black font-bold' : 'text-on-surface-variant hover:text-primary'}`}
-            >
-              Year 2
-            </button>
-          </div>
-        </div>
-        
-        <div className="bg-surface-container-low rounded-xl p-8 border border-outline-variant/15">
-          <div className="w-full h-[400px]">
-             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={proFormaData[proFormaYear]} margin={{ top: 20, right: 0, left: 10, bottom: 20 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
-                <XAxis dataKey="scenario" tick={{fill: '#888', fontSize: 12, fontFamily: 'Inter'}} axisLine={false} tickLine={false} dy={10} />
-                <YAxis tick={{fill: '#888', fontSize: 12, fontFamily: 'Inter'}} axisLine={false} tickLine={false} tickFormatter={(val) => `$${val/1000000}M`} />
-                <Tooltip content={<CustomTooltip />} cursor={{fill: 'rgba(241,201,125,0.05)'}} />
-                <Legend iconType="circle" wrapperStyle={{ paddingTop: '20px', fontSize: '12px', fontFamily: 'Inter' }} />
-                <Bar dataKey="Revenue" fill="#c8a96e" radius={[2, 2, 0, 0]} animationDuration={1000} />
-                <Bar dataKey="GrossProfit" fill="#a08a5d" radius={[2, 2, 0, 0]} animationDuration={1000} />
-                <Bar dataKey="OperatingIncome" fill="#39ff14" radius={[2, 2, 0, 0]} animationDuration={1000} />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
-      </div>
-
-      {/* 5E. FORECASTED SALES */}
-      <div className="relative z-10 w-full mb-32">
-        <div className="flex justify-between items-end mb-8 flex-wrap gap-4">
-          <h3 className="font-headline text-2xl font-light tracking-widest text-on-surface uppercase">Forecasted Sales (Y1)</h3>
-          <div className="flex bg-[#111] border border-primary/30 rounded-lg p-1">
-            {['Worst', 'Likely', 'Best'].map((scen) => (
-              <button 
-                key={scen}
-                onClick={() => setForecastScenario(scen)}
-                className={`px-6 py-2 font-label text-xs uppercase tracking-widest rounded transition-colors ${forecastScenario === scen ? 'bg-primary text-black font-bold' : 'text-on-surface-variant hover:text-primary'}`}
-              >
-                {scen} Case
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div className="bg-surface-container-low rounded-xl p-8 border border-outline-variant/15">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <div className="h-[300px] w-full border border-outline-variant/10 rounded-lg p-4 pb-8 bg-[#111]">
-              <h4 className="font-label text-xs uppercase tracking-widest text-on-surface-variant mb-4 text-center">Unit Volume Projection</h4>
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={salesForecastData[forecastScenario]} margin={{ top: 10, right: 0, left: 10, bottom: 20 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
-                  <XAxis dataKey="product" tick={{fill: '#888', fontSize: 12}} axisLine={false} tickLine={false} dy={5} />
-                  <YAxis tick={{fill: '#888', fontSize: 12}} axisLine={false} tickLine={false} tickFormatter={(val) => `${val/1000}k`} />
-                  <Tooltip content={<CustomTooltip />} cursor={{fill: 'rgba(255,255,255,0.05)'}} />
-                  <Bar dataKey="units" name="Units" fill="#7a8c99" radius={[2, 2, 0, 0]} animationDuration={800} />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-            
-            <div className="h-[300px] w-full border border-outline-variant/10 rounded-lg p-4 pb-8 bg-[#111]">
-              <h4 className="font-label text-xs uppercase tracking-widest text-on-surface-variant mb-4 text-center">Revenue Projection</h4>
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={salesForecastData[forecastScenario]} margin={{ top: 10, right: 0, left: 20, bottom: 20 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
-                  <XAxis dataKey="product" tick={{fill: '#888', fontSize: 12}} axisLine={false} tickLine={false} dy={5} />
-                  <YAxis tick={{fill: '#888', fontSize: 12}} axisLine={false} tickLine={false} tickFormatter={(val) => `$${val/1000000}M`} />
-                  <Tooltip content={<CustomTooltip />} cursor={{fill: 'rgba(255,255,255,0.05)'}} />
-                  <Bar dataKey="revenue" name="Revenue" fill="#c8a96e" radius={[2, 2, 0, 0]} animationDuration={800} />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
         </div>
       </div>
     </section>

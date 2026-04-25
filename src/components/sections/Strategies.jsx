@@ -144,13 +144,13 @@ const Strategies = () => {
               <div>
                 <h3 className="font-headline text-3xl font-semibold uppercase tracking-wider mb-4 text-on-surface">Influencer PR Boxes</h3>
                 <p className="font-body text-xl text-on-surface-variant leading-relaxed">
-                  Highly selective PR boxes sent to influencers with strong international presence. Each recipient receives an exclusive invitation to the <span className="text-primary font-semibold">Samsonite AirMax Launch Party</span> — an all-expenses-covered long-weekend getaway to <span className="text-primary font-semibold">Nice, France</span>, including tickets to the AirMax Fashion Show.
+                  Highly selective PR boxes sent to influencers with strong international presence. Each recipient receives an exclusive invitation to the <span className="text-primary font-semibold">Samsonite Freeform Compress Launch Party</span> — an all-expenses-covered long-weekend getaway to <span className="text-primary font-semibold">Nice, France</span>, including tickets to the Freeform Compress Fashion Show.
                 </p>
               </div>
 
               {/* Fashion Show Image */}
               <div className="rounded-xl overflow-hidden border border-outline-variant/15 shadow-[0_10px_40px_rgba(0,0,0,0.6)]">
-                <img src="/images/fashion_show.png" alt="AirMax Fashion Show — Models dragging rolling suitcases on runway" className="w-full h-auto object-contain" />
+                <img src="/images/fashion_show.png" alt="Freeform Compress Fashion Show — Models dragging rolling suitcases on runway" className="w-full h-auto object-contain" />
               </div>
 
               {/* Influencer Cards with Real Photos */}

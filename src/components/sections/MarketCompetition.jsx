@@ -52,11 +52,10 @@ const AnimatedStat = ({ end, duration = 2500, prefix = '', suffix = '', title, d
 };
 
 const competitors = [
-  { brand: 'Away', price: '$295 - $395', weakness: 'Standard DTC shell, zero volume flexibility' },
-  { brand: 'Monos', price: '$245 - $345', weakness: 'Aesthetic focus over technical utility' },
-  { brand: 'Travelpro', price: '$180 - $350', weakness: 'Heavy nylon construct, outdated aesthetics' },
-  { brand: 'Rimowa', price: '$900 - $1500+', weakness: 'Prohibitive cost, easily dented aluminum' },
-  { brand: 'Delsey', price: '$150 - $300', weakness: 'Weak zipper integration, poor security' }
+  { brand: 'Away', price: '$295 - $395', feature: 'USB charging and ejectable batteries' },
+  { brand: 'Travelpro', price: '$180 - $350', feature: 'Expandable compartments' },
+  { brand: 'Rimowa', price: '$900 - $1500+', feature: 'RFID electronic tagging' },
+  { brand: 'Delsey', price: '$150 - $300', feature: 'Smart locks' }
 ];
 
 const ProblemCard = ({ icon, title, description }) => (
@@ -157,14 +156,14 @@ const MarketCompetition = () => {
             />
             <motion.div 
               whileHover={{ y: -5 }}
-              className="glass-panel liquid-glass p-8 rounded-xl border border-error/30 flex flex-col justify-center text-center group h-full relative overflow-hidden"
+              className="glass-panel liquid-glass p-8 rounded-xl border border-error/30 flex flex-col items-center justify-center text-center group h-full relative overflow-hidden"
             >
                <div className="absolute inset-0 bg-gradient-to-br from-error/5 to-transparent"></div>
-               <div className="relative z-10">
-                  <div className="font-headline text-4xl md:text-5xl font-bold text-error mb-4 tracking-tight drop-shadow-[0_0_15px_rgba(244,67,54,0.3)]">
+               <div className="relative z-10 flex flex-col items-center">
+                  <div className="font-headline text-4xl md:text-5xl font-bold text-error mb-4 tracking-tight drop-shadow-[0_0_15px_rgba(244,67,54,0.3)] text-center">
                     $7.27B
                   </div>
-                  <div className="font-label text-sm uppercase tracking-widest text-on-surface-variant leading-relaxed">
+                  <div className="font-label text-sm uppercase tracking-widest text-on-surface-variant leading-relaxed text-center">
                     Baggage Fees (2024)
                   </div>
                </div>
@@ -213,7 +212,7 @@ const MarketCompetition = () => {
             </div>
             <ul className="space-y-4 font-body text-base md:text-lg text-on-surface-variant leading-relaxed mb-2">
                 <li className="flex items-start gap-3"><div className="w-2 h-2 mt-2.5 bg-primary rounded-full shrink-0"></div> Compression doesn't make clothes lighter, but it helps you pack more intentionally</li>
-                <li className="flex items-start gap-3"><div className="w-2 h-2 mt-2.5 bg-primary rounded-full shrink-0"></div> When you can see how much space you actually have, you're less likely to overpack "just in case" items</li>
+                <li className="flex items-start gap-3"><div className="w-2 h-2 mt-2.5 bg-primary rounded-full shrink-0"></div> Our product gives you more space so you can max out airline weight limits</li>
                 <li className="flex items-start gap-3"><div className="w-2 h-2 mt-2.5 bg-primary rounded-full shrink-0"></div> People overpack because they're bad at estimating space, not because they need 40 pounds of clothing</li>
                 <li className="flex items-start gap-3"><div className="w-2 h-2 mt-2.5 bg-primary rounded-full shrink-0"></div> Visible room to spare removes the instinct to cram in extras</li>
             </ul>
@@ -242,7 +241,7 @@ const MarketCompetition = () => {
       {/* Competitor Comparison Matrix */}
       <div>
         <h3 className="font-headline text-2xl font-light uppercase tracking-[0.2em] text-center mb-12">Competitive Matrix</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
           {competitors.map((comp, idx) => (
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
@@ -254,7 +253,7 @@ const MarketCompetition = () => {
             >
               <h4 className="font-headline text-xl text-on-surface mb-2">{comp.brand}</h4>
               <span className="font-label text-[10px] text-on-surface-variant uppercase tracking-widest mb-6">{comp.price}</span>
-              <p className="font-body text-xs text-on-surface-variant/80 mb-6 flex-grow">{comp.weakness}</p>
+              <p className="font-body text-xs text-on-surface-variant/80 mb-6 flex-grow">{comp.feature}</p>
               <div className="w-full pt-4 border-t border-outline-variant/20">
                 <span className="font-label text-[10px] text-error uppercase tracking-widest flex items-center justify-center gap-1">
                   Vacuum Compression: <span className="text-sm font-bold">✗</span>
@@ -268,18 +267,67 @@ const MarketCompetition = () => {
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.6, duration: 0.5 }}
+            transition={{ delay: 0.5, duration: 0.5 }}
             className="bg-surface-container-highest p-6 rounded-xl border-2 border-primary shadow-[0_0_30px_rgba(241,201,125,0.15)] flex flex-col items-center text-center relative overflow-hidden group"
           >
             <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent"></div>
             <h4 className="font-headline text-2xl text-primary font-bold mb-2 relative z-10">Freeform</h4>
             <span className="font-label text-[10px] text-primary uppercase tracking-widest mb-6 relative z-10">$238 - $439</span>
-            <p className="font-body text-xs text-on-surface mb-6 flex-grow relative z-10">Uncompromised strength with integrated spatial manipulation.</p>
+            <p className="font-body text-xs text-on-surface mb-6 flex-grow relative z-10">Integrated vacuum compression</p>
             <div className="w-full pt-4 border-t border-primary/30 relative z-10">
               <span className="font-label text-[10px] text-green-400 uppercase tracking-widest flex items-center justify-center gap-1 font-bold">
                 Vacuum Compression: <span className="text-sm font-bold">✓</span>
               </span>
             </div>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Target Customers */}
+      <div>
+        <h3 className="font-headline text-2xl font-light uppercase tracking-[0.2em] mb-8 text-primary flex items-center gap-4">
+          <span className="material-symbols-outlined">groups</span>
+          Target Customers
+        </h3>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Business Travelers */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="bg-surface-container-low p-8 rounded-xl border border-primary/20 hover:border-primary/50 transition-colors relative overflow-hidden group"
+          >
+            <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl -mr-10 -mt-10 transition-all group-hover:bg-primary/10"></div>
+            <div className="flex items-center gap-4 mb-6 relative z-10">
+              <span className="material-symbols-outlined text-4xl text-primary">business_center</span>
+              <h4 className="font-headline text-xl text-on-surface uppercase tracking-wider">Business Travelers</h4>
+            </div>
+            <ul className="space-y-4 font-body text-base md:text-lg text-on-surface-variant leading-relaxed relative z-10">
+              <li className="flex items-start gap-3"><div className="w-2 h-2 mt-2.5 bg-primary rounded-full shrink-0"></div> Fly multiple times a month, pack and repack constantly</li>
+              <li className="flex items-start gap-3"><div className="w-2 h-2 mt-2.5 bg-primary rounded-full shrink-0"></div> Already spending $300-$500 on premium luggage</li>
+              <li className="flex items-start gap-3"><div className="w-2 h-2 mt-2.5 bg-primary rounded-full shrink-0"></div> They feel the packing problem on every single trip</li>
+            </ul>
+          </motion.div>
+
+          {/* Gen Z / Millennial / College */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+            className="bg-surface-container-low p-8 rounded-xl border border-primary/20 hover:border-primary/50 transition-colors relative overflow-hidden group"
+          >
+            <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl -mr-10 -mt-10 transition-all group-hover:bg-primary/10"></div>
+            <div className="flex items-center gap-4 mb-6 relative z-10">
+              <span className="material-symbols-outlined text-4xl text-primary">school</span>
+              <h4 className="font-headline text-xl text-on-surface uppercase tracking-wider">Gen Z, Millennial &amp; College Travelers</h4>
+            </div>
+            <ul className="space-y-4 font-body text-base md:text-lg text-on-surface-variant leading-relaxed relative z-10">
+              <li className="flex items-start gap-3"><div className="w-2 h-2 mt-2.5 bg-primary rounded-full shrink-0"></div> More price-sensitive than business travelers, but our price point is accessible</li>
+              <li className="flex items-start gap-3"><div className="w-2 h-2 mt-2.5 bg-primary rounded-full shrink-0"></div> They buy based on social media — the compression demo is perfect for short-form</li>
+              <li className="flex items-start gap-3"><div className="w-2 h-2 mt-2.5 bg-primary rounded-full shrink-0"></div> 88% of Gen Z follow travel influencers on TikTok</li>
+            </ul>
           </motion.div>
         </div>
       </div>
