@@ -271,7 +271,7 @@ const MarketCompetition = () => {
             className="bg-surface-container-highest p-6 rounded-xl border-2 border-primary shadow-[0_0_30px_rgba(241,201,125,0.15)] flex flex-col items-center text-center relative overflow-hidden group"
           >
             <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent"></div>
-            <h4 className="font-headline text-2xl text-primary font-bold mb-2 relative z-10">Freeform</h4>
+            <h4 className="font-headline text-2xl text-primary font-bold mb-2 relative z-10">Samsonite</h4>
             <span className="font-label text-[10px] text-primary uppercase tracking-widest mb-6 relative z-10">$238 - $439</span>
             <p className="font-body text-xs text-on-surface mb-6 flex-grow relative z-10">Integrated vacuum compression</p>
             <div className="w-full pt-4 border-t border-primary/30 relative z-10">
